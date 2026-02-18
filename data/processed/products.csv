@@ -1,0 +1,9 @@
+product_id,product_name,package_type,revenue_per_unit,baseline_daily_demand_units,service_level_target,is_active
+PROD_PILSNER,Harbour Pilsner (355ml can),can,1.7,900,0.95,1
+PROD_IPA,Harbour IPA (355ml can),can,1.95,1200,0.95,1
+PROD_WHEAT,Harbour Wheat (500ml bottle),bottle,2.35,650,0.95,1
+PROD_FRUIT_SOUR,Harbour Fruit Sour (355ml can),can,2.2,500,0.95,1
+PROD_ORANGE_WIT,Harbour Orange Wit (355ml can),can,2.05,450,0.95,1
+PROD_STOUT,Harbour Stout (355ml can),can,2.1,550,0.95,1
+PROD_SESSION_IPA,Harbour Session IPA (355ml can),can,1.85,700,0.95,1
+PROD_SODA_WATER,Harbour Soda Water (355ml can),can,1.25,600,0.95,1
