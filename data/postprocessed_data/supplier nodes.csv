@@ -1,0 +1,43 @@
+﻿node_id,type,name,country,region,city,capacity_per_day,capacity_unit,base_cost_per_unit,lead_time_days,failure_probability,co2e_per_unit,min_order_qty,is_active,category
+SUP_YEAST_01,supplier,Northeast Yeast Labs (Calgary),Canada,AB,Calgary,999999,orders,0,7,0.022815902,0.02,0,1,yeast
+SUP_YEAST_02,supplier,Ontario Yeast Co. (Boston),USA,MA,Boston,999999,orders,0,5,0.02294928,0.02,0,1,yeast
+SUP_HOPS_03,supplier,Finger Lakes Hops (Philadelphia),USA,PA,Philadelphia,999999,orders,0,9,0.02588902,0.1,0,1,hops
+SUP_YEAST_04,supplier,Northeast Yeast Labs (Portland),USA,ME,Portland,999999,orders,0,6,0.016879727,0.02,0,1,yeast
+SUP_package_05,supplier,CapCraft (Quebec City),Canada,QC,Quebec City,999999,orders,0,10,0.025888573,0.1,0,1,package
+SUP_package_06,supplier,CanCo package (Winnipeg),Canada,MB,Winnipeg,999999,orders,0,11,0.018004919,0.1,0,1,package
+SUP_MALT_07,supplier,Atlantic Maltsters (Toronto),Canada,ON,Toronto,999999,orders,0,7,0.018597677,0.06,0,1,malt
+SUP_HOPS_08,supplier,Great Lakes Hop Farms (Sydney),Canada,NS,Sydney,999999,orders,0,9,0.025140034,0.1,0,1,hops
+SUP_GAS_09,supplier,Atlantic Industrial Gases (Ottawa),Canada,ON,Ottawa,999999,orders,0,5,0.017978645,0.1,0,1,gas
+SUP_WATER_10,supplier,Halifax Water Utility (Moncton),Canada,NB,Moncton,999999,orders,0,1,0.011182824,0.02,0,1,water
+SUP_SUGAR_11,supplier,Maritime Sugars (Seattle),USA,WA,Seattle,999999,orders,0,8,0.016983756,0.02,0,1,sugar
+SUP_package_12,supplier,LabelWorks (Calgary),Canada,AB,Calgary,999999,orders,0,11,0.019368478,0.1,0,1,package
+SUP_HOPS_13,supplier,Pacific Northwest Hops (Saint John),Canada,NB,Saint John,999999,orders,0,10,0.028572154,0.1,0,1,hops
+SUP_HOPS_14,supplier,Great Lakes Hop Farms (Halifax),Canada,NS,Halifax,999999,orders,0,9,0.021487286,0.1,0,1,hops
+SUP_HOPS_15,supplier,Maine Hop Collective (Chicago),USA,IL,Chicago,999999,orders,0,11,0.021118351,0.1,0,1,hops
+SUP_FRUIT_16,supplier,Pacific Fruit Processing (Toronto),Canada,ON,Toronto,999999,orders,0,10,0.018221814,0.06,0,1,fruit
+SUP_YEAST_17,supplier,Northeast Yeast Labs (Chicago),USA,IL,Chicago,999999,orders,0,7,0.016943448,0.02,0,1,yeast
+SUP_GAS_18,supplier,Quebec CO2 Supply (Vancouver),Canada,BC,Vancouver,999999,orders,0,6,0.020113362,0.1,0,1,gas
+SUP_FRUIT_19,supplier,Quebec Orchard Co-op (Saint John),Canada,NB,Saint John,999999,orders,0,10,0.021723732,0.06,0,1,fruit
+SUP_MALT_20,supplier,Maritime Grains Ltd (San Francisco),USA,CA,San Francisco,999999,orders,0,7,0.016793812,0.06,0,1,malt
+SUP_MALT_21,supplier,Atlantic Maltsters (Saint John),Canada,NB,Saint John,999999,orders,0,6,0.02238729,0.06,0,1,malt
+SUP_package_22,supplier,GlassWorks MTL (Charlottetown),Canada,PE,Charlottetown,999999,orders,0,10,0.019623153,0.1,0,1,package
+SUP_HOPS_23,supplier,Finger Lakes Hops (Ottawa),Canada,ON,Ottawa,999999,orders,0,11,0.024106272,0.1,0,1,hops
+SUP_package_24,supplier,PrintLab Halifax (Winnipeg),Canada,MB,Winnipeg,999999,orders,0,11,0.022283438,0.1,0,1,package
+SUP_MALT_25,supplier,Atlantic Maltsters (Winnipeg),Canada,MB,Winnipeg,999999,orders,0,7,0.02035483,0.06,0,1,malt
+SUP_FRUIT_26,supplier,Tropical Puree Co. (Calgary),Canada,AB,Calgary,999999,orders,0,8,0.023019389,0.06,0,1,fruit
+SUP_SUGAR_27,supplier,Quebec Sugars Inc. (Sydney),Canada,NS,Sydney,999999,orders,0,6,0.019799418,0.02,0,1,sugar
+SUP_MALT_28,supplier,Quebec Grain Co-op (Vancouver),Canada,BC,Vancouver,999999,orders,0,7,0.019628254,0.06,0,1,malt
+SUP_WATER_29,supplier,Moncton Water Works (Boston),USA,MA,Boston,999999,orders,0,2,0.010823343,0.02,0,1,water
+SUP_FRUIT_30,supplier,Pacific Fruit Processing (Toronto),Canada,ON,Toronto,999999,orders,0,8,0.018969843,0.06,0,1,fruit
+SUP_HOPS_BK_01,supplier,Backup Emergency Hop Supplier (Contract Only) (Seattle),USA,WA,Seattle,999999,orders,0,12,0.032,0.1,0,0,hops
+SUP_HOPS_BK_02,supplier,Backup European Hop Broker (Air Freight) (New York),USA,NY,New York,999999,orders,0,14,0.032,0.1,0,0,hops
+SUP_YEAST_BK_01,supplier,Backup Yeast Lab (Rush Orders) (Toronto),Canada,ON,Toronto,999999,orders,0,8,0.025,0.02,0,0,yeast
+SUP_CAN_BK_01,supplier,Backup Can Supplier (Spot Buy) (Chicago),USA,IL,Chicago,999999,orders,0,16,0.028,0.12,0,0,package
+SUP_BOTTLE_BK_01,supplier,Backup Glass Supplier (Limited Capacity) (Quebec City),Canada,QC,Quebec City,999999,orders,0,18,0.028,0.12,0,0,package
+SUP_LABEL_BK_01,supplier,Backup Label Printer (Local) (Halifax),Canada,NS,Halifax,999999,orders,0,6,0.028,0.12,0,0,package
+SUP_CARTON_BK_01,supplier,Backup Carton Supplier (Moncton),Canada,NB,Moncton,999999,orders,0,10,0.028,0.12,0,0,package
+SUP_FRUIT_BK_01,supplier,Backup Fruit Puree Supplier (Boston),USA,MA,Boston,999999,orders,0,12,0.026,0.06,0,0,fruit
+SUP_MALT_BK_01,supplier,Backup Malt Supplier (Rail) (Winnipeg),Canada,MB,Winnipeg,999999,orders,0,14,0.026,0.08,0,0,malt
+SUP_CO2_BK_01,supplier,Backup CO2 Supplier (Montreal),Canada,QC,Montreal,999999,orders,0,8,0.022,0.08,0,0,gas
+SUP_SUGAR_BK_01,supplier,Backup Brewing Sugar Supplier (Ottawa),Canada,ON,Ottawa,999999,orders,0,10,0.022,0.02,0,0,sugar
+SUP_PACK_MISC_BK_01,supplier,Backup package Distributor (Philadelphia),USA,PA,Philadelphia,999999,orders,0,15,0.028,0.12,0,0,package
