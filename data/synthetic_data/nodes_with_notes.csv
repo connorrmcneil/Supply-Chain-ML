@@ -1,0 +1,601 @@
+node_id,node_type,region,capacity_units,throughput_units,recovery_days,backup_level,is_backup_capable,criticality_weight,substitutable,volume_weight,notes,label
+PORT_001,PORT,Quebec,751,430,9,partial,1,,,,Sole port for 5 plant(s).,critical
+PORT_002,PORT,Ontario,909,449,13,full,1,,,,Sole port for 2 plant(s).,critical
+PORT_003,PORT,MidwestUS,765,380,5,full,1,,,,Sole port for 0 plant(s).,critical
+PORT_004,PORT,Prairies,1734,803,14,full,1,,,,Sole port for 2 plant(s).,critical
+PORT_005,PORT,Prairies,1816,1017,11,full,1,,,,Sole port for 2 plant(s).,critical
+PORT_006,PORT,BC,713,570,7,full,0,,,,Sole port for 2 plant(s).,critical
+PORT_007,PORT,NortheastUS,1269,708,7,full,1,,,,Sole port for 0 plant(s).,critical
+PORT_008,PORT,NortheastUS,909,582,6,full,1,,,,Sole port for 0 plant(s).,critical
+PORT_009,PORT,NortheastUS,1404,817,14,full,1,,,,Sole port for 0 plant(s).,critical
+PORT_010,PORT,Atlantic,1640,840,13,full,1,,,,Sole port for 2 plant(s).,critical
+PORT_011,PORT,MidwestUS,861,514,13,full,1,,,,Sole port for 0 plant(s).,critical
+PORT_012,PORT,NortheastUS,1882,1510,8,full,0,,,,Sole port for 1 plant(s).,critical
+PORT_013,PORT,Atlantic,1166,1099,9,full,0,,,,Sole port for 2 plant(s).,critical
+PORT_014,PORT,Prairies,906,534,11,full,1,,,,Sole port for 0 plant(s).,critical
+PORT_015,PORT,NortheastUS,1033,648,10,full,1,,,,Sole port for 0 plant(s).,critical
+PLANT_001,PLANT,BC,1018,806,21,full,0,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_002,PLANT,Quebec,923,494,17,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_003,PLANT,Prairies,467,299,14,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_004,PLANT,Prairies,1001,872,12,full,0,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_005,PLANT,Atlantic,534,249,20,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_006,PLANT,NortheastUS,710,343,11,partial,1,,,,Limited downstream warehouse options.,critical
+PLANT_007,PLANT,NortheastUS,517,362,17,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_008,PLANT,SoutheastUS,446,232,11,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_009,PLANT,BC,1064,707,16,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_010,PLANT,MidwestUS,670,636,10,none,0,,,,Chokepoint: sole source for a single-sourced ingredient used by high-volume products.,critical
+PLANT_011,PLANT,Ontario,821,407,14,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_012,PLANT,Atlantic,1181,622,8,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_013,PLANT,Ontario,1111,734,17,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_014,PLANT,Quebec,694,519,13,none,1,,,,Chokepoint: sole source for a single-sourced ingredient used by high-volume products.,critical
+PLANT_015,PLANT,SoutheastUS,841,787,11,full,0,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_016,PLANT,Atlantic,996,505,18,none,1,,,,Chokepoint: sole source for a single-sourced ingredient used by high-volume products.,critical
+PLANT_017,PLANT,BC,1087,674,17,none,1,,,,Chokepoint: sole source for a single-sourced ingredient used by high-volume products.,critical
+PLANT_018,PLANT,BC,745,504,9,partial,1,,,,Port-constrained (only 1 port connection).,critical
+PLANT_019,PLANT,BC,812,438,19,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_020,PLANT,Quebec,1191,714,17,partial,1,,,,Port-constrained (only 1 port connection).,critical
+PLANT_021,PLANT,Prairies,456,379,12,full,0,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_022,PLANT,Atlantic,913,634,12,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_023,PLANT,Quebec,671,633,21,full,0,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_024,PLANT,BC,545,311,7,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_025,PLANT,Quebec,387,268,18,partial,1,,,,Port-constrained (only 1 port connection).,critical
+PLANT_026,PLANT,Quebec,1078,898,15,partial,0,,,,Limited downstream warehouse options.,critical
+PLANT_027,PLANT,Ontario,975,900,14,partial,0,,,,Limited downstream warehouse options.,critical
+PLANT_028,PLANT,Ontario,571,506,15,partial,0,,,,Port-constrained (only 1 port connection).,critical
+PLANT_029,PLANT,MidwestUS,516,371,21,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_030,PLANT,Prairies,1030,669,11,partial,1,,,,Port-constrained (only 1 port connection).,critical
+PLANT_031,PLANT,NortheastUS,748,530,21,none,1,,,,Chokepoint: sole source for a single-sourced ingredient used by high-volume products.,critical
+PLANT_032,PLANT,Quebec,553,267,10,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_033,PLANT,Atlantic,902,510,15,partial,1,,,,Limited downstream warehouse options.,critical
+PLANT_034,PLANT,Prairies,307,247,8,full,0,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_035,PLANT,Atlantic,534,482,8,full,0,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_036,PLANT,NortheastUS,372,212,15,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_037,PLANT,SoutheastUS,519,268,15,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_038,PLANT,SoutheastUS,548,376,19,partial,1,,,,Port-constrained (only 1 port connection).,critical
+PLANT_039,PLANT,MidwestUS,494,246,8,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_040,PLANT,MidwestUS,662,434,13,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_041,PLANT,Atlantic,989,932,17,full,0,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_042,PLANT,Quebec,362,295,13,partial,0,,,,Limited downstream warehouse options.,critical
+PLANT_043,PLANT,Quebec,554,302,10,partial,1,,,,Limited downstream warehouse options.,critical
+PLANT_044,PLANT,SoutheastUS,443,240,13,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_045,PLANT,SoutheastUS,555,506,20,partial,0,,,,Port-constrained (only 1 port connection).,critical
+PLANT_046,PLANT,SoutheastUS,1127,989,20,none,0,,,,Chokepoint: sole source for a single-sourced ingredient used by high-volume products.,critical
+PLANT_047,PLANT,Quebec,351,333,17,partial,0,,,,Port-constrained (only 1 port connection).,critical
+PLANT_048,PLANT,Atlantic,395,327,21,partial,0,,,,Port-constrained (only 1 port connection).,critical
+PLANT_049,PLANT,Prairies,470,326,13,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_050,PLANT,Prairies,1185,1068,13,full,0,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_051,PLANT,Ontario,688,649,7,partial,0,,,,Port-constrained (only 1 port connection).,critical
+PLANT_052,PLANT,BC,1102,747,19,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_053,PLANT,MidwestUS,1013,960,18,full,0,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_054,PLANT,SoutheastUS,458,274,10,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_055,PLANT,Atlantic,893,644,18,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_056,PLANT,NortheastUS,358,266,7,none,1,,,,Chokepoint: sole source for a single-sourced ingredient used by high-volume products.,critical
+PLANT_057,PLANT,Ontario,358,175,15,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_058,PLANT,Ontario,370,179,16,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_059,PLANT,Prairies,713,657,8,partial,0,,,,Port-constrained (only 1 port connection).,critical
+PLANT_060,PLANT,Prairies,892,419,16,partial,1,,,,Port-constrained (only 1 port connection).,critical
+PLANT_061,PLANT,Quebec,729,541,17,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_062,PLANT,NortheastUS,567,445,10,none,0,,,,Chokepoint: sole source for a single-sourced ingredient used by high-volume products.,critical
+PLANT_063,PLANT,NortheastUS,544,352,11,partial,1,,,,Limited downstream warehouse options.,critical
+PLANT_064,PLANT,BC,768,702,12,full,0,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_065,PLANT,Quebec,309,235,14,partial,0,,,,Port-constrained (only 1 port connection).,critical
+PLANT_066,PLANT,Quebec,375,209,15,partial,1,,,,Port-constrained (only 1 port connection).,critical
+PLANT_067,PLANT,BC,435,272,21,partial,1,,,,Port-constrained (only 1 port connection).,critical
+PLANT_068,PLANT,Quebec,1200,762,10,none,1,,,,Chokepoint: sole source for a single-sourced ingredient used by high-volume products.,critical
+PLANT_069,PLANT,Ontario,748,540,20,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_070,PLANT,BC,926,719,19,full,0,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_071,PLANT,Atlantic,983,715,20,partial,1,,,,Port-constrained (only 1 port connection).,critical
+PLANT_072,PLANT,Quebec,1199,698,9,none,1,,,,Chokepoint: sole source for a single-sourced ingredient used by high-volume products.,critical
+PLANT_073,PLANT,Quebec,1060,559,15,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_074,PLANT,BC,919,743,10,full,0,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_075,PLANT,Prairies,1003,879,17,partial,0,,,,Limited downstream warehouse options.,critical
+PLANT_076,PLANT,SoutheastUS,557,504,21,partial,0,,,,Limited downstream warehouse options.,critical
+PLANT_077,PLANT,Atlantic,394,261,17,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_078,PLANT,BC,345,213,7,none,1,,,,Chokepoint: sole source for a single-sourced ingredient used by high-volume products.,critical
+PLANT_079,PLANT,Ontario,952,505,11,none,1,,,,Chokepoint: sole source for a single-sourced ingredient used by high-volume products.,critical
+PLANT_080,PLANT,SoutheastUS,864,574,18,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_081,PLANT,Atlantic,414,382,8,none,0,,,,Chokepoint: sole source for a single-sourced ingredient used by high-volume products.,critical
+PLANT_082,PLANT,Ontario,858,744,7,full,0,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_083,PLANT,Ontario,740,348,9,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_084,PLANT,NortheastUS,1115,524,20,partial,1,,,,Port-constrained (only 1 port connection).,critical
+PLANT_085,PLANT,NortheastUS,515,296,17,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_086,PLANT,Quebec,662,483,19,partial,1,,,,Limited downstream warehouse options.,critical
+PLANT_087,PLANT,MidwestUS,935,493,18,partial,1,,,,Limited downstream warehouse options.,critical
+PLANT_088,PLANT,Prairies,1185,1112,9,full,0,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_089,PLANT,Ontario,722,390,7,full,1,,,,Multiple upstream/downstream alternatives.,critical
+PLANT_090,PLANT,NortheastUS,1101,722,21,none,1,,,,Chokepoint: sole source for a single-sourced ingredient used by high-volume products.,critical
+WH_001,WAREHOUSE,Prairies,1146,967,3,none,0,,,,"Receives from 0 plant(s), replenishes 1 DC(s).",non-critical
+WH_002,WAREHOUSE,Quebec,1383,1216,2,none,0,,,,"Receives from 4 plant(s), replenishes 1 DC(s).",critical
+WH_003,WAREHOUSE,Prairies,1008,630,5,none,1,,,,"Receives from 1 plant(s), replenishes 1 DC(s).",critical
+WH_004,WAREHOUSE,Prairies,1056,824,2,none,0,,,,"Receives from 2 plant(s), replenishes 1 DC(s).",critical
+WH_005,WAREHOUSE,MidwestUS,1272,1122,4,partial,0,,,,"Receives from 2 plant(s), replenishes 4 DC(s).",critical
+WH_006,WAREHOUSE,BC,1319,930,7,none,1,,,,"Receives from 7 plant(s), replenishes 1 DC(s).",critical
+WH_007,WAREHOUSE,NortheastUS,656,583,2,partial,0,,,,"Receives from 3 plant(s), replenishes 4 DC(s).",critical
+WH_008,WAREHOUSE,BC,965,899,6,partial,0,,,,"Receives from 6 plant(s), replenishes 3 DC(s).",critical
+WH_009,WAREHOUSE,BC,678,507,2,partial,1,,,,"Receives from 2 plant(s), replenishes 5 DC(s).",critical
+WH_010,WAREHOUSE,NortheastUS,2092,1398,4,none,1,,,,"Receives from 5 plant(s), replenishes 2 DC(s).",critical
+WH_011,WAREHOUSE,Quebec,1388,757,6,none,1,,,,"Receives from 3 plant(s), replenishes 1 DC(s).",critical
+WH_012,WAREHOUSE,Atlantic,2051,925,5,full,1,,,,"Receives from 4 plant(s), replenishes 7 DC(s).",critical
+WH_013,WAREHOUSE,Prairies,1345,652,5,none,1,,,,"Receives from 3 plant(s), replenishes 1 DC(s).",critical
+WH_014,WAREHOUSE,NortheastUS,1876,1466,4,partial,0,,,,"Receives from 3 plant(s), replenishes 3 DC(s).",critical
+WH_015,WAREHOUSE,Quebec,2074,1459,4,none,1,,,,"Receives from 6 plant(s), replenishes 2 DC(s).",critical
+WH_016,WAREHOUSE,MidwestUS,1268,1013,5,partial,0,,,,"Receives from 3 plant(s), replenishes 5 DC(s).",critical
+WH_017,WAREHOUSE,Ontario,992,776,5,partial,0,,,,"Receives from 8 plant(s), replenishes 3 DC(s).",critical
+WH_018,WAREHOUSE,MidwestUS,1987,1791,7,none,0,,,,"Receives from 4 plant(s), replenishes 1 DC(s).",critical
+WH_019,WAREHOUSE,BC,1431,1240,6,none,0,,,,"Receives from 2 plant(s), replenishes 1 DC(s).",critical
+WH_020,WAREHOUSE,BC,1187,789,3,none,1,,,,"Receives from 5 plant(s), replenishes 1 DC(s).",critical
+WH_021,WAREHOUSE,NortheastUS,1552,1042,5,partial,1,,,,"Receives from 4 plant(s), replenishes 3 DC(s).",critical
+WH_022,WAREHOUSE,Prairies,1646,1394,5,none,0,,,,"Receives from 1 plant(s), replenishes 2 DC(s).",critical
+WH_023,WAREHOUSE,Ontario,1949,1154,2,partial,1,,,,"Receives from 5 plant(s), replenishes 3 DC(s).",critical
+WH_024,WAREHOUSE,NortheastUS,791,622,3,none,0,,,,"Receives from 4 plant(s), replenishes 1 DC(s).",critical
+WH_025,WAREHOUSE,Prairies,2251,1179,3,none,1,,,,"Receives from 4 plant(s), replenishes 1 DC(s).",critical
+WH_026,WAREHOUSE,Atlantic,1101,832,5,none,0,,,,"Receives from 1 plant(s), replenishes 4 DC(s).",critical
+WH_027,WAREHOUSE,Quebec,1532,1368,5,partial,0,,,,"Receives from 3 plant(s), replenishes 4 DC(s).",critical
+WH_028,WAREHOUSE,Prairies,2071,1330,7,partial,1,,,,"Receives from 2 plant(s), replenishes 3 DC(s).",critical
+WH_029,WAREHOUSE,MidwestUS,1099,855,3,none,0,,,,"Receives from 0 plant(s), replenishes 6 DC(s).",critical
+WH_030,WAREHOUSE,Atlantic,2428,2038,2,full,0,,,,"Receives from 6 plant(s), replenishes 4 DC(s).",critical
+WH_031,WAREHOUSE,Prairies,960,681,7,none,1,,,,"Receives from 1 plant(s), replenishes 4 DC(s).",critical
+WH_032,WAREHOUSE,Atlantic,1741,1582,3,partial,0,,,,"Receives from 3 plant(s), replenishes 4 DC(s).",critical
+WH_033,WAREHOUSE,Quebec,1534,1305,3,none,0,,,,"Receives from 1 plant(s), replenishes 1 DC(s).",critical
+WH_034,WAREHOUSE,NortheastUS,2146,1623,5,full,0,,,,"Receives from 5 plant(s), replenishes 7 DC(s).",critical
+WH_035,WAREHOUSE,MidwestUS,2301,1548,6,partial,1,,,,"Receives from 3 plant(s), replenishes 3 DC(s).",critical
+WH_036,WAREHOUSE,Ontario,2123,1433,5,full,1,,,,"Receives from 10 plant(s), replenishes 7 DC(s).",critical
+WH_037,WAREHOUSE,Prairies,2320,1366,7,none,1,,,,"Receives from 2 plant(s), replenishes 1 DC(s).",critical
+WH_038,WAREHOUSE,SoutheastUS,1883,1106,3,partial,1,,,,"Receives from 2 plant(s), replenishes 3 DC(s).",critical
+WH_039,WAREHOUSE,Quebec,2061,1169,4,none,1,,,,"Receives from 3 plant(s), replenishes 2 DC(s).",critical
+WH_040,WAREHOUSE,NortheastUS,1254,615,6,full,1,,,,"Receives from 4 plant(s), replenishes 7 DC(s).",critical
+WH_041,WAREHOUSE,Ontario,1073,855,5,partial,0,,,,"Receives from 8 plant(s), replenishes 3 DC(s).",critical
+WH_042,WAREHOUSE,Prairies,731,478,5,none,1,,,,"Receives from 3 plant(s), replenishes 0 DC(s).",critical
+WH_043,WAREHOUSE,SoutheastUS,1451,803,2,partial,1,,,,"Receives from 3 plant(s), replenishes 4 DC(s).",critical
+WH_044,WAREHOUSE,MidwestUS,1397,1289,6,none,0,,,,"Receives from 3 plant(s), replenishes 2 DC(s).",critical
+WH_045,WAREHOUSE,Atlantic,2354,1507,6,partial,1,,,,"Receives from 5 plant(s), replenishes 3 DC(s).",critical
+WH_046,WAREHOUSE,Atlantic,1320,1091,4,full,0,,,,"Receives from 7 plant(s), replenishes 6 DC(s).",critical
+WH_047,WAREHOUSE,MidwestUS,1702,1391,7,partial,0,,,,"Receives from 2 plant(s), replenishes 4 DC(s).",critical
+WH_048,WAREHOUSE,Prairies,1599,938,3,partial,1,,,,"Receives from 4 plant(s), replenishes 3 DC(s).",critical
+WH_049,WAREHOUSE,SoutheastUS,659,407,5,full,1,,,,"Receives from 6 plant(s), replenishes 4 DC(s).",critical
+WH_050,WAREHOUSE,MidwestUS,2083,1813,3,none,0,,,,"Receives from 3 plant(s), replenishes 1 DC(s).",critical
+WH_051,WAREHOUSE,Ontario,1874,869,6,full,1,,,,"Receives from 4 plant(s), replenishes 5 DC(s).",critical
+WH_052,WAREHOUSE,MidwestUS,1812,1416,6,none,0,,,,"Receives from 0 plant(s), replenishes 5 DC(s).",critical
+WH_053,WAREHOUSE,Quebec,1916,992,5,none,1,,,,"Receives from 6 plant(s), replenishes 1 DC(s).",critical
+WH_054,WAREHOUSE,SoutheastUS,972,564,2,partial,1,,,,"Receives from 6 plant(s), replenishes 3 DC(s).",critical
+WH_055,WAREHOUSE,NortheastUS,1033,634,5,partial,1,,,,"Receives from 3 plant(s), replenishes 3 DC(s).",critical
+WH_056,WAREHOUSE,MidwestUS,1169,674,5,partial,1,,,,"Receives from 2 plant(s), replenishes 4 DC(s).",critical
+WH_057,WAREHOUSE,Quebec,1563,1289,2,none,0,,,,"Receives from 1 plant(s), replenishes 4 DC(s).",critical
+WH_058,WAREHOUSE,Atlantic,1316,1020,3,full,0,,,,"Receives from 8 plant(s), replenishes 4 DC(s).",critical
+WH_059,WAREHOUSE,Atlantic,2144,1983,2,partial,0,,,,"Receives from 2 plant(s), replenishes 3 DC(s).",critical
+WH_060,WAREHOUSE,Prairies,2318,1763,2,none,0,,,,"Receives from 6 plant(s), replenishes 2 DC(s).",critical
+WH_061,WAREHOUSE,Prairies,858,673,5,none,0,,,,"Receives from 5 plant(s), replenishes 0 DC(s).",critical
+WH_062,WAREHOUSE,Prairies,1552,897,7,none,1,,,,"Receives from 1 plant(s), replenishes 1 DC(s).",critical
+WH_063,WAREHOUSE,NortheastUS,943,711,6,none,0,,,,"Receives from 1 plant(s), replenishes 4 DC(s).",critical
+WH_064,WAREHOUSE,Quebec,2192,2044,3,none,0,,,,"Receives from 2 plant(s), replenishes 2 DC(s).",critical
+WH_065,WAREHOUSE,Quebec,1785,1632,2,none,0,,,,"Receives from 2 plant(s), replenishes 2 DC(s).",critical
+WH_066,WAREHOUSE,MidwestUS,1412,775,7,partial,1,,,,"Receives from 2 plant(s), replenishes 3 DC(s).",critical
+WH_067,WAREHOUSE,Prairies,808,676,7,none,0,,,,"Receives from 2 plant(s), replenishes 2 DC(s).",critical
+WH_068,WAREHOUSE,Quebec,2230,1876,6,none,0,,,,"Receives from 1 plant(s), replenishes 3 DC(s).",critical
+WH_069,WAREHOUSE,NortheastUS,1691,1320,5,partial,0,,,,"Receives from 4 plant(s), replenishes 3 DC(s).",critical
+WH_070,WAREHOUSE,Quebec,1636,1015,7,none,1,,,,"Receives from 4 plant(s), replenishes 1 DC(s).",critical
+WH_071,WAREHOUSE,MidwestUS,2284,1148,5,none,1,,,,"Receives from 2 plant(s), replenishes 1 DC(s).",critical
+WH_072,WAREHOUSE,NortheastUS,1901,1528,5,full,0,,,,"Receives from 4 plant(s), replenishes 4 DC(s).",critical
+WH_073,WAREHOUSE,MidwestUS,960,682,7,none,1,,,,"Receives from 0 plant(s), replenishes 5 DC(s).",critical
+WH_074,WAREHOUSE,BC,1861,1558,6,none,0,,,,"Receives from 3 plant(s), replenishes 1 DC(s).",critical
+WH_075,WAREHOUSE,SoutheastUS,1492,1113,7,full,1,,,,"Receives from 4 plant(s), replenishes 4 DC(s).",critical
+WH_076,WAREHOUSE,NortheastUS,2344,2028,3,none,0,,,,"Receives from 4 plant(s), replenishes 2 DC(s).",critical
+WH_077,WAREHOUSE,Quebec,1171,670,5,none,1,,,,"Receives from 2 plant(s), replenishes 2 DC(s).",critical
+WH_078,WAREHOUSE,SoutheastUS,1767,1385,6,partial,0,,,,"Receives from 2 plant(s), replenishes 3 DC(s).",critical
+WH_079,WAREHOUSE,NortheastUS,658,576,5,partial,0,,,,"Receives from 2 plant(s), replenishes 3 DC(s).",critical
+WH_080,WAREHOUSE,Ontario,1598,1003,3,full,1,,,,"Receives from 5 plant(s), replenishes 4 DC(s).",critical
+WH_081,WAREHOUSE,BC,1297,1155,4,none,0,,,,"Receives from 3 plant(s), replenishes 2 DC(s).",critical
+WH_082,WAREHOUSE,BC,1738,1231,2,none,1,,,,"Receives from 3 plant(s), replenishes 2 DC(s).",critical
+WH_083,WAREHOUSE,Prairies,775,628,3,none,0,,,,"Receives from 4 plant(s), replenishes 1 DC(s).",critical
+WH_084,WAREHOUSE,SoutheastUS,1737,1381,3,full,0,,,,"Receives from 4 plant(s), replenishes 5 DC(s).",critical
+WH_085,WAREHOUSE,SoutheastUS,1517,753,2,full,1,,,,"Receives from 5 plant(s), replenishes 5 DC(s).",critical
+WH_086,WAREHOUSE,Prairies,1428,816,7,none,1,,,,"Receives from 5 plant(s), replenishes 2 DC(s).",critical
+WH_087,WAREHOUSE,NortheastUS,1569,1123,6,partial,1,,,,"Receives from 3 plant(s), replenishes 5 DC(s).",critical
+WH_088,WAREHOUSE,MidwestUS,2127,1309,6,partial,1,,,,"Receives from 2 plant(s), replenishes 3 DC(s).",critical
+WH_089,WAREHOUSE,SoutheastUS,1154,664,4,partial,1,,,,"Receives from 3 plant(s), replenishes 8 DC(s).",critical
+WH_090,WAREHOUSE,Quebec,2077,1262,3,full,1,,,,"Receives from 6 plant(s), replenishes 4 DC(s).",critical
+WH_091,WAREHOUSE,Ontario,992,813,3,full,0,,,,"Receives from 4 plant(s), replenishes 6 DC(s).",critical
+WH_092,WAREHOUSE,BC,2083,1954,6,none,0,,,,"Receives from 2 plant(s), replenishes 0 DC(s).",critical
+WH_093,WAREHOUSE,BC,805,481,3,none,1,,,,"Receives from 2 plant(s), replenishes 1 DC(s).",critical
+WH_094,WAREHOUSE,NortheastUS,967,442,4,none,1,,,,"Receives from 3 plant(s), replenishes 1 DC(s).",critical
+WH_095,WAREHOUSE,Ontario,1161,1088,2,full,0,,,,"Receives from 6 plant(s), replenishes 4 DC(s).",critical
+WH_096,WAREHOUSE,BC,2028,1559,3,none,0,,,,"Receives from 2 plant(s), replenishes 1 DC(s).",critical
+WH_097,WAREHOUSE,SoutheastUS,810,597,2,partial,1,,,,"Receives from 2 plant(s), replenishes 3 DC(s).",critical
+WH_098,WAREHOUSE,SoutheastUS,1580,980,5,partial,1,,,,"Receives from 6 plant(s), replenishes 3 DC(s).",critical
+WH_099,WAREHOUSE,Atlantic,1117,566,5,partial,1,,,,"Receives from 3 plant(s), replenishes 3 DC(s).",critical
+WH_100,WAREHOUSE,Quebec,1420,692,5,none,1,,,,"Receives from 4 plant(s), replenishes 2 DC(s).",critical
+WH_101,WAREHOUSE,Atlantic,910,779,3,none,0,,,,"Receives from 9 plant(s), replenishes 2 DC(s).",critical
+WH_102,WAREHOUSE,BC,774,394,3,partial,1,,,,"Receives from 3 plant(s), replenishes 3 DC(s).",critical
+WH_103,WAREHOUSE,MidwestUS,1841,1556,6,none,0,,,,"Receives from 2 plant(s), replenishes 2 DC(s).",critical
+WH_104,WAREHOUSE,Prairies,2188,1401,6,none,1,,,,"Receives from 4 plant(s), replenishes 2 DC(s).",critical
+WH_105,WAREHOUSE,SoutheastUS,1208,1142,6,full,0,,,,"Receives from 5 plant(s), replenishes 5 DC(s).",critical
+WH_106,WAREHOUSE,BC,1764,847,6,partial,1,,,,"Receives from 2 plant(s), replenishes 3 DC(s).",critical
+WH_107,WAREHOUSE,Quebec,2162,1649,3,none,0,,,,"Receives from 3 plant(s), replenishes 2 DC(s).",critical
+WH_108,WAREHOUSE,BC,1952,1032,2,full,1,,,,"Receives from 4 plant(s), replenishes 7 DC(s).",critical
+WH_109,WAREHOUSE,Ontario,1730,914,2,partial,1,,,,"Receives from 9 plant(s), replenishes 3 DC(s).",critical
+WH_110,WAREHOUSE,MidwestUS,1522,1137,7,full,1,,,,"Receives from 4 plant(s), replenishes 4 DC(s).",critical
+WH_111,WAREHOUSE,BC,666,396,3,none,1,,,,"Receives from 3 plant(s), replenishes 1 DC(s).",critical
+WH_112,WAREHOUSE,BC,2039,990,5,none,1,,,,"Receives from 1 plant(s), replenishes 2 DC(s).",critical
+WH_113,WAREHOUSE,Prairies,2492,2103,4,none,0,,,,"Receives from 5 plant(s), replenishes 0 DC(s).",critical
+WH_114,WAREHOUSE,Prairies,1470,1062,2,none,1,,,,"Receives from 1 plant(s), replenishes 1 DC(s).",critical
+WH_115,WAREHOUSE,Ontario,2460,2124,4,partial,0,,,,"Receives from 2 plant(s), replenishes 3 DC(s).",critical
+WH_116,WAREHOUSE,Quebec,722,611,3,none,0,,,,"Receives from 7 plant(s), replenishes 2 DC(s).",critical
+WH_117,WAREHOUSE,BC,1499,1026,2,none,1,,,,"Receives from 4 plant(s), replenishes 0 DC(s).",critical
+WH_118,WAREHOUSE,BC,2033,1873,5,none,0,,,,"Receives from 1 plant(s), replenishes 2 DC(s).",critical
+WH_119,WAREHOUSE,SoutheastUS,1496,1121,2,none,1,,,,"Receives from 2 plant(s), replenishes 1 DC(s).",critical
+WH_120,WAREHOUSE,MidwestUS,2104,1582,4,partial,0,,,,"Receives from 5 plant(s), replenishes 3 DC(s).",critical
+DC_001,DC,Atlantic,1174,1093,2,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_002,DC,Atlantic,1903,895,5,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_003,DC,Ontario,2727,2115,5,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_004,DC,BC,1543,1031,5,full,1,,,,Served by 3 warehouse(s).,critical
+DC_005,DC,SoutheastUS,1173,732,4,full,1,,,,Served by 3 warehouse(s).,critical
+DC_006,DC,NortheastUS,2115,1859,1,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_007,DC,NortheastUS,2486,1477,4,none,1,,,,Served by 1 warehouse(s).,critical
+DC_008,DC,MidwestUS,3053,2068,1,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_009,DC,NortheastUS,1833,931,3,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_010,DC,MidwestUS,2907,2264,1,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_011,DC,SoutheastUS,2492,1355,1,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_012,DC,NortheastUS,2841,2358,4,none,0,,,,Served by 1 warehouse(s).,critical
+DC_013,DC,Prairies,1893,976,5,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_014,DC,BC,2594,1325,4,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_015,DC,Prairies,1448,1050,3,none,1,,,,Served by 1 warehouse(s).,critical
+DC_016,DC,MidwestUS,1181,1117,2,full,0,,,,Served by 3 warehouse(s).,critical
+DC_017,DC,Quebec,2690,2082,1,full,0,,,,Served by 3 warehouse(s).,critical
+DC_018,DC,Ontario,2841,2001,3,full,1,,,,Served by 3 warehouse(s).,critical
+DC_019,DC,BC,2501,2351,4,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_020,DC,Prairies,2670,1395,5,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_021,DC,Prairies,2881,2541,2,none,0,,,,Served by 1 warehouse(s).,critical
+DC_022,DC,BC,2499,2292,3,none,0,,,,Served by 1 warehouse(s).,critical
+DC_023,DC,BC,810,659,3,none,0,,,,Served by 1 warehouse(s).,critical
+DC_024,DC,SoutheastUS,1408,1013,4,none,1,,,,Served by 1 warehouse(s).,critical
+DC_025,DC,NortheastUS,2161,1797,5,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_026,DC,MidwestUS,2665,2358,3,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_027,DC,Prairies,3142,1781,4,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_028,DC,MidwestUS,978,804,3,full,0,,,,Served by 3 warehouse(s).,critical
+DC_029,DC,MidwestUS,2381,1661,2,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_030,DC,Atlantic,1317,1228,5,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_031,DC,NortheastUS,1211,605,4,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_032,DC,SoutheastUS,862,565,2,full,1,,,,Served by 3 warehouse(s).,critical
+DC_033,DC,Ontario,1106,930,4,full,0,,,,Served by 3 warehouse(s).,critical
+DC_034,DC,BC,2186,1741,5,full,0,,,,Served by 3 warehouse(s).,critical
+DC_035,DC,Quebec,2145,1373,5,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_036,DC,NortheastUS,2798,1309,5,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_037,DC,Quebec,1761,1671,3,full,0,,,,Served by 3 warehouse(s).,critical
+DC_038,DC,Quebec,2577,2139,1,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_039,DC,Quebec,2617,2086,2,none,0,,,,Served by 1 warehouse(s).,critical
+DC_040,DC,Atlantic,988,838,3,none,0,,,,Served by 1 warehouse(s).,critical
+DC_041,DC,BC,2268,1509,3,full,1,,,,Served by 3 warehouse(s).,critical
+DC_042,DC,Prairies,2975,2181,4,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_043,DC,Ontario,1496,732,2,none,1,,,,Served by 1 warehouse(s).,critical
+DC_044,DC,MidwestUS,1786,1619,4,none,0,,,,Served by 1 warehouse(s).,critical
+DC_045,DC,Ontario,1751,1346,4,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_046,DC,SoutheastUS,1845,1659,1,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_047,DC,SoutheastUS,1978,1046,5,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_048,DC,SoutheastUS,2215,1328,5,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_049,DC,MidwestUS,1824,1592,4,none,0,,,,Served by 1 warehouse(s).,critical
+DC_050,DC,Prairies,2375,1195,4,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_051,DC,MidwestUS,3142,2317,3,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_052,DC,BC,889,522,4,none,1,,,,Served by 1 warehouse(s).,critical
+DC_053,DC,Atlantic,2834,2375,3,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_054,DC,Prairies,2243,1723,2,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_055,DC,BC,1360,1226,1,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_056,DC,Atlantic,2065,964,4,full,1,,,,Served by 3 warehouse(s).,critical
+DC_057,DC,NortheastUS,1338,1211,1,none,0,,,,Served by 1 warehouse(s).,critical
+DC_058,DC,NortheastUS,2501,1377,2,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_059,DC,NortheastUS,2974,2697,5,none,0,,,,Served by 1 warehouse(s).,non-critical
+DC_060,DC,Ontario,1852,1729,4,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_061,DC,BC,2187,1496,1,full,1,,,,Served by 3 warehouse(s).,critical
+DC_062,DC,Quebec,1376,1211,2,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_063,DC,MidwestUS,3082,1526,3,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_064,DC,MidwestUS,857,616,3,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_065,DC,SoutheastUS,2309,1714,3,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_066,DC,NortheastUS,1243,852,2,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_067,DC,NortheastUS,1706,1310,1,none,0,,,,Served by 1 warehouse(s).,critical
+DC_068,DC,SoutheastUS,2037,1035,4,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_069,DC,Atlantic,952,902,3,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_070,DC,Quebec,1198,1071,2,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_071,DC,Ontario,2391,1519,4,none,1,,,,Served by 1 warehouse(s).,critical
+DC_072,DC,MidwestUS,1432,1113,4,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_073,DC,SoutheastUS,2471,1152,3,full,1,,,,Served by 3 warehouse(s).,critical
+DC_074,DC,NortheastUS,1689,1136,4,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_075,DC,Prairies,2285,2149,1,full,0,,,,Served by 3 warehouse(s).,critical
+DC_076,DC,NortheastUS,3030,1455,3,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_077,DC,BC,1577,1458,1,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_078,DC,SoutheastUS,1175,906,2,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_079,DC,Atlantic,1007,576,3,full,1,,,,Served by 3 warehouse(s).,critical
+DC_080,DC,Ontario,3112,1507,2,full,1,,,,Served by 3 warehouse(s).,critical
+DC_081,DC,Prairies,1684,1034,2,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_082,DC,Ontario,811,713,3,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_083,DC,Ontario,1332,766,5,full,1,,,,Served by 3 warehouse(s).,critical
+DC_084,DC,Ontario,1250,645,1,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_085,DC,NortheastUS,1774,1085,5,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_086,DC,Ontario,1886,968,1,none,1,,,,Served by 1 warehouse(s).,critical
+DC_087,DC,MidwestUS,2954,2431,1,full,0,,,,Served by 3 warehouse(s).,critical
+DC_088,DC,SoutheastUS,2636,1863,3,full,1,,,,Served by 3 warehouse(s).,critical
+DC_089,DC,Quebec,2651,1487,5,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_090,DC,Atlantic,2935,1993,3,none,1,,,,Served by 1 warehouse(s).,critical
+DC_091,DC,Atlantic,1049,916,4,full,0,,,,Served by 3 warehouse(s).,critical
+DC_092,DC,MidwestUS,1242,1001,4,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_093,DC,SoutheastUS,1101,673,1,none,1,,,,Served by 1 warehouse(s).,critical
+DC_094,DC,Ontario,1069,628,2,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_095,DC,NortheastUS,2360,1688,5,full,1,,,,Served by 3 warehouse(s).,critical
+DC_096,DC,SoutheastUS,2870,1909,5,full,1,,,,Served by 3 warehouse(s).,critical
+DC_097,DC,Quebec,3058,2034,2,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_098,DC,Prairies,2494,2154,3,none,0,,,,Served by 1 warehouse(s).,critical
+DC_099,DC,MidwestUS,2503,1518,1,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_100,DC,NortheastUS,1844,1709,3,none,0,,,,Served by 1 warehouse(s).,critical
+DC_101,DC,SoutheastUS,1074,930,1,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_102,DC,Quebec,2568,2112,1,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_103,DC,NortheastUS,1332,639,5,none,1,,,,Served by 1 warehouse(s).,non-critical
+DC_104,DC,NortheastUS,1300,815,4,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_105,DC,MidwestUS,1010,758,3,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_106,DC,NortheastUS,1224,861,5,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_107,DC,Ontario,2775,2424,2,full,0,,,,Served by 3 warehouse(s).,critical
+DC_108,DC,NortheastUS,3078,1562,3,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_109,DC,BC,3151,2690,2,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_110,DC,Atlantic,1895,1024,1,full,1,,,,Served by 3 warehouse(s).,critical
+DC_111,DC,BC,2191,993,3,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_112,DC,Ontario,3119,1512,4,none,1,,,,Served by 1 warehouse(s).,critical
+DC_113,DC,Atlantic,1175,655,5,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_114,DC,MidwestUS,2658,1405,3,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_115,DC,BC,2128,1592,5,full,1,,,,Served by 3 warehouse(s).,critical
+DC_116,DC,Atlantic,1437,1189,2,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_117,DC,Atlantic,1134,762,3,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_118,DC,MidwestUS,2789,1871,5,none,1,,,,Served by 1 warehouse(s).,critical
+DC_119,DC,BC,1682,853,5,none,1,,,,Served by 1 warehouse(s).,critical
+DC_120,DC,MidwestUS,1254,990,3,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_121,DC,SoutheastUS,2958,1398,3,none,1,,,,Served by 1 warehouse(s).,critical
+DC_122,DC,MidwestUS,1024,565,1,full,1,,,,Served by 3 warehouse(s).,critical
+DC_123,DC,Prairies,1362,810,3,full,1,,,,Served by 3 warehouse(s).,critical
+DC_124,DC,Quebec,831,684,4,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_125,DC,Ontario,1329,952,4,full,1,,,,Served by 3 warehouse(s).,critical
+DC_126,DC,Prairies,2849,2469,5,full,0,,,,Served by 3 warehouse(s).,critical
+DC_127,DC,NortheastUS,1095,965,4,full,0,,,,Served by 3 warehouse(s).,critical
+DC_128,DC,Atlantic,2586,1758,1,none,1,,,,Served by 1 warehouse(s).,critical
+DC_129,DC,Quebec,2082,1384,5,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_130,DC,MidwestUS,2510,1274,3,none,1,,,,Served by 1 warehouse(s).,critical
+DC_131,DC,Atlantic,2130,1812,2,none,0,,,,Served by 1 warehouse(s).,critical
+DC_132,DC,SoutheastUS,2282,1525,1,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_133,DC,Quebec,1796,1337,4,full,1,,,,Served by 3 warehouse(s).,critical
+DC_134,DC,Quebec,2421,1992,3,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_135,DC,Prairies,2164,1056,2,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_136,DC,Quebec,2973,1626,5,full,1,,,,Served by 3 warehouse(s).,critical
+DC_137,DC,NortheastUS,2238,1271,2,none,1,,,,Served by 1 warehouse(s).,critical
+DC_138,DC,Ontario,1848,992,2,none,1,,,,Served by 1 warehouse(s).,critical
+DC_139,DC,Ontario,1108,1026,2,none,0,,,,Served by 1 warehouse(s).,critical
+DC_140,DC,SoutheastUS,2700,2241,5,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_141,DC,SoutheastUS,3112,1903,5,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_142,DC,NortheastUS,1418,687,4,none,1,,,,Served by 1 warehouse(s).,critical
+DC_143,DC,SoutheastUS,2040,1521,3,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_144,DC,NortheastUS,2878,1742,1,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_145,DC,SoutheastUS,954,605,1,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_146,DC,BC,1114,844,1,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_147,DC,MidwestUS,2695,1960,5,none,1,,,,Served by 1 warehouse(s).,critical
+DC_148,DC,Atlantic,2642,2050,5,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_149,DC,NortheastUS,2748,1444,5,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_150,DC,Atlantic,2645,2263,1,none,0,,,,Served by 1 warehouse(s).,critical
+DC_151,DC,NortheastUS,1145,885,5,none,0,,,,Served by 1 warehouse(s).,critical
+DC_152,DC,Atlantic,1814,1715,4,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_153,DC,Ontario,2290,2082,3,none,0,,,,Served by 1 warehouse(s).,critical
+DC_154,DC,MidwestUS,2474,1953,3,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_155,DC,Atlantic,2170,1334,1,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_156,DC,MidwestUS,1963,1594,3,full,0,,,,Served by 3 warehouse(s).,critical
+DC_157,DC,Ontario,2165,1605,1,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_158,DC,Ontario,2232,2084,3,none,0,,,,Served by 1 warehouse(s).,critical
+DC_159,DC,MidwestUS,1328,1068,5,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_160,DC,Quebec,2068,1320,5,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_161,DC,NortheastUS,1323,657,5,none,1,,,,Served by 1 warehouse(s).,critical
+DC_162,DC,MidwestUS,2882,1323,3,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_163,DC,BC,1538,955,2,none,1,,,,Served by 1 warehouse(s).,critical
+DC_164,DC,SoutheastUS,1586,1507,2,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_165,DC,Ontario,1116,973,3,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_166,DC,Quebec,2879,2498,5,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_167,DC,Atlantic,2179,1123,5,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_168,DC,MidwestUS,1431,773,2,none,1,,,,Served by 1 warehouse(s).,critical
+DC_169,DC,Ontario,2592,1699,1,partial,1,,,,Served by 2 warehouse(s).,critical
+DC_170,DC,Prairies,2619,1552,5,none,1,,,,Served by 1 warehouse(s).,non-critical
+DC_171,DC,SoutheastUS,1758,1001,5,full,1,,,,Served by 3 warehouse(s).,critical
+DC_172,DC,SoutheastUS,1594,1258,3,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_173,DC,SoutheastUS,2691,2258,3,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_174,DC,MidwestUS,1463,1244,2,partial,0,,,,Served by 2 warehouse(s).,critical
+DC_175,DC,Ontario,1824,1406,1,none,0,,,,Served by 1 warehouse(s).,critical
+ING_001,INGREDIENT,,,,,,,0.335,1,,Sourced by 1 plant(s).,critical
+ING_002,INGREDIENT,,,,,,,0.259,0,,Sourced by 1 plant(s).,critical
+ING_003,INGREDIENT,,,,,,,0.401,1,,Sourced by 1 plant(s).,critical
+ING_004,INGREDIENT,,,,,,,0.808,0,,Sourced by 3 plant(s).,critical
+ING_005,INGREDIENT,,,,,,,0.75,1,,Sourced by 3 plant(s).,critical
+ING_006,INGREDIENT,,,,,,,0.699,0,,Sourced by 2 plant(s).,critical
+ING_007,INGREDIENT,,,,,,,0.894,0,,Sourced by 2 plant(s).,critical
+ING_008,INGREDIENT,,,,,,,0.569,0,,Sourced by 2 plant(s).,critical
+ING_009,INGREDIENT,,,,,,,0.211,1,,Sourced by 1 plant(s).,critical
+ING_010,INGREDIENT,,,,,,,0.29,0,,Sourced by 3 plant(s).,critical
+ING_011,INGREDIENT,,,,,,,0.922,0,,Sourced by 2 plant(s).,critical
+ING_012,INGREDIENT,,,,,,,0.454,0,,Sourced by 3 plant(s).,critical
+ING_013,INGREDIENT,,,,,,,0.343,1,,Sourced by 2 plant(s).,critical
+ING_014,INGREDIENT,,,,,,,0.343,0,,Sourced by 2 plant(s).,critical
+ING_015,INGREDIENT,,,,,,,0.574,1,,Sourced by 2 plant(s).,critical
+ING_016,INGREDIENT,,,,,,,0.702,1,,Sourced by 2 plant(s).,critical
+ING_017,INGREDIENT,,,,,,,0.522,0,,Sourced by 1 plant(s).,critical
+ING_018,INGREDIENT,,,,,,,0.545,0,,Sourced by 1 plant(s).,critical
+ING_019,INGREDIENT,,,,,,,0.375,1,,Sourced by 3 plant(s).,critical
+ING_020,INGREDIENT,,,,,,,0.412,0,,Sourced by 3 plant(s).,critical
+ING_021,INGREDIENT,,,,,,,0.312,0,,Sourced by 2 plant(s).,critical
+ING_022,INGREDIENT,,,,,,,0.905,0,,Sourced by 2 plant(s).,critical
+ING_023,INGREDIENT,,,,,,,0.416,0,,Sourced by 1 plant(s).,critical
+ING_024,INGREDIENT,,,,,,,0.909,0,,Sourced by 2 plant(s).,critical
+ING_025,INGREDIENT,,,,,,,0.672,0,,Sourced by 1 plant(s).,critical
+ING_026,INGREDIENT,,,,,,,0.212,0,,Sourced by 1 plant(s).,critical
+ING_027,INGREDIENT,,,,,,,0.809,0,,Sourced by 2 plant(s).,critical
+ING_028,INGREDIENT,,,,,,,0.432,1,,Sourced by 3 plant(s).,critical
+ING_029,INGREDIENT,,,,,,,0.648,1,,Sourced by 3 plant(s).,critical
+ING_030,INGREDIENT,,,,,,,0.241,1,,Sourced by 2 plant(s).,critical
+ING_031,INGREDIENT,,,,,,,0.931,0,,Sourced by 1 plant(s).,critical
+ING_032,INGREDIENT,,,,,,,0.821,0,,Sourced by 1 plant(s).,critical
+ING_033,INGREDIENT,,,,,,,0.549,0,,Sourced by 1 plant(s).,critical
+ING_034,INGREDIENT,,,,,,,0.28,1,,Sourced by 1 plant(s).,critical
+ING_035,INGREDIENT,,,,,,,0.403,0,,Sourced by 2 plant(s).,critical
+ING_036,INGREDIENT,,,,,,,0.698,0,,Sourced by 1 plant(s).,critical
+ING_037,INGREDIENT,,,,,,,0.788,1,,Sourced by 3 plant(s).,critical
+ING_038,INGREDIENT,,,,,,,0.836,0,,Sourced by 2 plant(s).,critical
+ING_039,INGREDIENT,,,,,,,0.281,0,,Sourced by 1 plant(s).,critical
+ING_040,INGREDIENT,,,,,,,0.766,1,,Sourced by 1 plant(s).,critical
+ING_041,INGREDIENT,,,,,,,0.321,0,,Sourced by 2 plant(s).,critical
+ING_042,INGREDIENT,,,,,,,0.977,0,,Sourced by 3 plant(s).,critical
+ING_043,INGREDIENT,,,,,,,0.389,1,,Sourced by 2 plant(s).,critical
+ING_044,INGREDIENT,,,,,,,0.439,0,,Sourced by 1 plant(s).,critical
+ING_045,INGREDIENT,,,,,,,0.895,0,,Sourced by 2 plant(s).,critical
+ING_046,INGREDIENT,,,,,,,0.222,0,,Sourced by 1 plant(s).,critical
+ING_047,INGREDIENT,,,,,,,0.372,0,,Sourced by 2 plant(s).,critical
+ING_048,INGREDIENT,,,,,,,0.81,0,,Sourced by 3 plant(s).,critical
+ING_049,INGREDIENT,,,,,,,0.593,1,,Sourced by 2 plant(s).,critical
+ING_050,INGREDIENT,,,,,,,0.96,0,,Sourced by 2 plant(s).,critical
+ING_051,INGREDIENT,,,,,,,0.887,0,,Sourced by 1 plant(s).,critical
+ING_052,INGREDIENT,,,,,,,0.44,1,,Sourced by 2 plant(s).,critical
+ING_053,INGREDIENT,,,,,,,0.774,1,,Sourced by 3 plant(s).,critical
+ING_054,INGREDIENT,,,,,,,0.837,0,,Sourced by 3 plant(s).,critical
+ING_055,INGREDIENT,,,,,,,0.615,1,,Sourced by 3 plant(s).,critical
+ING_056,INGREDIENT,,,,,,,0.678,1,,Sourced by 2 plant(s).,critical
+ING_057,INGREDIENT,,,,,,,0.817,0,,Sourced by 2 plant(s).,critical
+ING_058,INGREDIENT,,,,,,,0.885,0,,Sourced by 2 plant(s).,critical
+ING_059,INGREDIENT,,,,,,,0.458,0,,Sourced by 2 plant(s).,critical
+ING_060,INGREDIENT,,,,,,,0.308,1,,Sourced by 1 plant(s).,critical
+ING_061,INGREDIENT,,,,,,,0.262,1,,Sourced by 3 plant(s).,critical
+ING_062,INGREDIENT,,,,,,,0.377,1,,Sourced by 1 plant(s).,critical
+ING_063,INGREDIENT,,,,,,,0.631,1,,Sourced by 1 plant(s).,critical
+ING_064,INGREDIENT,,,,,,,0.466,1,,Sourced by 1 plant(s).,critical
+ING_065,INGREDIENT,,,,,,,0.945,0,,Sourced by 2 plant(s).,critical
+ING_066,INGREDIENT,,,,,,,0.747,0,,Sourced by 2 plant(s).,critical
+ING_067,INGREDIENT,,,,,,,0.461,0,,Sourced by 2 plant(s).,critical
+ING_068,INGREDIENT,,,,,,,0.675,1,,Sourced by 2 plant(s).,critical
+ING_069,INGREDIENT,,,,,,,0.603,1,,Sourced by 2 plant(s).,critical
+ING_070,INGREDIENT,,,,,,,0.903,0,,Sourced by 1 plant(s).,critical
+ING_071,INGREDIENT,,,,,,,0.65,1,,Sourced by 2 plant(s).,critical
+ING_072,INGREDIENT,,,,,,,0.219,0,,Sourced by 1 plant(s).,critical
+ING_073,INGREDIENT,,,,,,,0.936,0,,Sourced by 2 plant(s).,critical
+ING_074,INGREDIENT,,,,,,,0.463,1,,Sourced by 3 plant(s).,critical
+ING_075,INGREDIENT,,,,,,,0.342,0,,Sourced by 2 plant(s).,critical
+ING_076,INGREDIENT,,,,,,,0.417,0,,Sourced by 2 plant(s).,critical
+ING_077,INGREDIENT,,,,,,,0.219,1,,Sourced by 2 plant(s).,critical
+ING_078,INGREDIENT,,,,,,,0.47,1,,Sourced by 2 plant(s).,critical
+ING_079,INGREDIENT,,,,,,,0.466,1,,Sourced by 1 plant(s).,critical
+ING_080,INGREDIENT,,,,,,,0.283,1,,Sourced by 2 plant(s).,critical
+ING_081,INGREDIENT,,,,,,,0.389,1,,Sourced by 1 plant(s).,critical
+ING_082,INGREDIENT,,,,,,,0.776,1,,Sourced by 1 plant(s).,critical
+ING_083,INGREDIENT,,,,,,,0.312,0,,Sourced by 3 plant(s).,critical
+ING_084,INGREDIENT,,,,,,,0.748,1,,Sourced by 2 plant(s).,critical
+ING_085,INGREDIENT,,,,,,,0.665,0,,Sourced by 2 plant(s).,critical
+ING_086,INGREDIENT,,,,,,,0.329,0,,Sourced by 1 plant(s).,critical
+ING_087,INGREDIENT,,,,,,,0.616,0,,Sourced by 2 plant(s).,critical
+ING_088,INGREDIENT,,,,,,,0.32,1,,Sourced by 3 plant(s).,critical
+ING_089,INGREDIENT,,,,,,,0.244,1,,Sourced by 1 plant(s).,critical
+ING_090,INGREDIENT,,,,,,,0.628,0,,Sourced by 3 plant(s).,critical
+ING_091,INGREDIENT,,,,,,,0.686,0,,Sourced by 3 plant(s).,critical
+ING_092,INGREDIENT,,,,,,,0.792,0,,Sourced by 2 plant(s).,critical
+ING_093,INGREDIENT,,,,,,,0.626,0,,Sourced by 2 plant(s).,critical
+ING_094,INGREDIENT,,,,,,,0.374,1,,Sourced by 1 plant(s).,critical
+ING_095,INGREDIENT,,,,,,,0.295,0,,Sourced by 1 plant(s).,critical
+ING_096,INGREDIENT,,,,,,,0.94,0,,Sourced by 1 plant(s).,critical
+ING_097,INGREDIENT,,,,,,,0.304,1,,Sourced by 2 plant(s).,critical
+ING_098,INGREDIENT,,,,,,,0.335,0,,Sourced by 1 plant(s).,critical
+ING_099,INGREDIENT,,,,,,,0.675,1,,Sourced by 1 plant(s).,critical
+ING_100,INGREDIENT,,,,,,,0.496,1,,Sourced by 2 plant(s).,critical
+ING_101,INGREDIENT,,,,,,,0.543,1,,Sourced by 2 plant(s).,critical
+ING_102,INGREDIENT,,,,,,,0.79,1,,Sourced by 2 plant(s).,critical
+ING_103,INGREDIENT,,,,,,,0.731,1,,Sourced by 1 plant(s).,critical
+ING_104,INGREDIENT,,,,,,,0.439,0,,Sourced by 2 plant(s).,critical
+ING_105,INGREDIENT,,,,,,,0.896,0,,Sourced by 2 plant(s).,critical
+ING_106,INGREDIENT,,,,,,,0.446,1,,Sourced by 3 plant(s).,critical
+ING_107,INGREDIENT,,,,,,,0.545,1,,Sourced by 3 plant(s).,critical
+ING_108,INGREDIENT,,,,,,,0.39,1,,Sourced by 2 plant(s).,critical
+ING_109,INGREDIENT,,,,,,,0.479,0,,Sourced by 1 plant(s).,critical
+ING_110,INGREDIENT,,,,,,,0.277,0,,Sourced by 1 plant(s).,critical
+ING_111,INGREDIENT,,,,,,,0.531,0,,Sourced by 2 plant(s).,critical
+ING_112,INGREDIENT,,,,,,,0.954,0,,Sourced by 2 plant(s).,critical
+ING_113,INGREDIENT,,,,,,,0.277,0,,Sourced by 3 plant(s).,critical
+ING_114,INGREDIENT,,,,,,,0.974,0,,Sourced by 3 plant(s).,critical
+ING_115,INGREDIENT,,,,,,,0.699,0,,Sourced by 2 plant(s).,critical
+ING_116,INGREDIENT,,,,,,,0.861,0,,Sourced by 2 plant(s).,critical
+ING_117,INGREDIENT,,,,,,,0.832,0,,Sourced by 1 plant(s).,critical
+ING_118,INGREDIENT,,,,,,,0.761,1,,Sourced by 1 plant(s).,critical
+ING_119,INGREDIENT,,,,,,,0.768,0,,Sourced by 1 plant(s).,critical
+ING_120,INGREDIENT,,,,,,,0.857,0,,Sourced by 2 plant(s).,critical
+ING_121,INGREDIENT,,,,,,,0.247,1,,Sourced by 2 plant(s).,critical
+ING_122,INGREDIENT,,,,,,,0.774,1,,Sourced by 2 plant(s).,critical
+ING_123,INGREDIENT,,,,,,,0.575,0,,Sourced by 2 plant(s).,critical
+ING_124,INGREDIENT,,,,,,,0.256,0,,Sourced by 2 plant(s).,critical
+ING_125,INGREDIENT,,,,,,,0.555,0,,Sourced by 2 plant(s).,critical
+ING_126,INGREDIENT,,,,,,,0.303,0,,Sourced by 2 plant(s).,critical
+ING_127,INGREDIENT,,,,,,,0.741,1,,Sourced by 3 plant(s).,critical
+ING_128,INGREDIENT,,,,,,,0.754,1,,Sourced by 2 plant(s).,critical
+ING_129,INGREDIENT,,,,,,,0.718,1,,Sourced by 2 plant(s).,critical
+ING_130,INGREDIENT,,,,,,,0.769,0,,Sourced by 3 plant(s).,critical
+ING_131,INGREDIENT,,,,,,,0.359,1,,Sourced by 2 plant(s).,critical
+ING_132,INGREDIENT,,,,,,,0.543,0,,Sourced by 2 plant(s).,critical
+ING_133,INGREDIENT,,,,,,,0.806,0,,Sourced by 2 plant(s).,critical
+ING_134,INGREDIENT,,,,,,,0.733,0,,Sourced by 3 plant(s).,critical
+ING_135,INGREDIENT,,,,,,,0.585,1,,Sourced by 2 plant(s).,critical
+ING_136,INGREDIENT,,,,,,,0.347,0,,Sourced by 2 plant(s).,critical
+ING_137,INGREDIENT,,,,,,,0.444,1,,Sourced by 3 plant(s).,critical
+ING_138,INGREDIENT,,,,,,,0.613,1,,Sourced by 1 plant(s).,critical
+ING_139,INGREDIENT,,,,,,,0.449,1,,Sourced by 2 plant(s).,critical
+ING_140,INGREDIENT,,,,,,,0.404,1,,Sourced by 2 plant(s).,critical
+PROD_001,PRODUCT,,,,,,,,,0.965,Requires 4 ingredient(s).,critical
+PROD_002,PRODUCT,,,,,,,,,0.83,Requires 9 ingredient(s).,critical
+PROD_003,PRODUCT,,,,,,,,,0.997,Requires 4 ingredient(s).,critical
+PROD_004,PRODUCT,,,,,,,,,0.836,Requires 6 ingredient(s).,critical
+PROD_005,PRODUCT,,,,,,,,,0.85,Requires 6 ingredient(s).,critical
+PROD_006,PRODUCT,,,,,,,,,0.94,Requires 5 ingredient(s).,critical
+PROD_007,PRODUCT,,,,,,,,,0.879,Requires 5 ingredient(s).,critical
+PROD_008,PRODUCT,,,,,,,,,0.777,Requires 7 ingredient(s).,critical
+PROD_009,PRODUCT,,,,,,,,,0.81,Requires 4 ingredient(s).,critical
+PROD_010,PRODUCT,,,,,,,,,0.781,Requires 4 ingredient(s).,critical
+PROD_011,PRODUCT,,,,,,,,,0.862,Requires 8 ingredient(s).,critical
+PROD_012,PRODUCT,,,,,,,,,0.785,Requires 4 ingredient(s).,critical
+PROD_013,PRODUCT,,,,,,,,,0.37,Requires 4 ingredient(s).,critical
+PROD_014,PRODUCT,,,,,,,,,0.728,Requires 4 ingredient(s).,critical
+PROD_015,PRODUCT,,,,,,,,,0.696,Requires 8 ingredient(s).,critical
+PROD_016,PRODUCT,,,,,,,,,0.517,Requires 5 ingredient(s).,critical
+PROD_017,PRODUCT,,,,,,,,,0.735,Requires 9 ingredient(s).,critical
+PROD_018,PRODUCT,,,,,,,,,0.711,Requires 3 ingredient(s).,critical
+PROD_019,PRODUCT,,,,,,,,,0.675,Requires 5 ingredient(s).,critical
+PROD_020,PRODUCT,,,,,,,,,0.724,Requires 11 ingredient(s).,critical
+PROD_021,PRODUCT,,,,,,,,,0.638,Requires 4 ingredient(s).,critical
+PROD_022,PRODUCT,,,,,,,,,0.426,Requires 12 ingredient(s).,critical
+PROD_023,PRODUCT,,,,,,,,,0.414,Requires 3 ingredient(s).,critical
+PROD_024,PRODUCT,,,,,,,,,0.748,Requires 8 ingredient(s).,critical
+PROD_025,PRODUCT,,,,,,,,,0.537,Requires 8 ingredient(s).,critical
+PROD_026,PRODUCT,,,,,,,,,0.702,Requires 5 ingredient(s).,critical
+PROD_027,PRODUCT,,,,,,,,,0.549,Requires 7 ingredient(s).,critical
+PROD_028,PRODUCT,,,,,,,,,0.386,Requires 5 ingredient(s).,critical
+PROD_029,PRODUCT,,,,,,,,,0.507,Requires 3 ingredient(s).,critical
+PROD_030,PRODUCT,,,,,,,,,0.533,Requires 5 ingredient(s).,critical
+PROD_031,PRODUCT,,,,,,,,,0.446,Requires 6 ingredient(s).,critical
+PROD_032,PRODUCT,,,,,,,,,0.583,Requires 6 ingredient(s).,critical
+PROD_033,PRODUCT,,,,,,,,,0.369,Requires 10 ingredient(s).,critical
+PROD_034,PRODUCT,,,,,,,,,0.463,Requires 3 ingredient(s).,critical
+PROD_035,PRODUCT,,,,,,,,,0.589,Requires 14 ingredient(s).,critical
+PROD_036,PRODUCT,,,,,,,,,0.687,Requires 4 ingredient(s).,critical
+PROD_037,PRODUCT,,,,,,,,,0.619,Requires 8 ingredient(s).,critical
+PROD_038,PRODUCT,,,,,,,,,0.464,Requires 11 ingredient(s).,critical
+PROD_039,PRODUCT,,,,,,,,,0.353,Requires 3 ingredient(s).,critical
+PROD_040,PRODUCT,,,,,,,,,0.393,Requires 12 ingredient(s).,critical
+PROD_041,PRODUCT,,,,,,,,,0.404,Requires 7 ingredient(s).,critical
+PROD_042,PRODUCT,,,,,,,,,0.456,Requires 4 ingredient(s).,critical
+PROD_043,PRODUCT,,,,,,,,,0.16,Requires 4 ingredient(s).,critical
+PROD_044,PRODUCT,,,,,,,,,0.171,Requires 5 ingredient(s).,critical
+PROD_045,PRODUCT,,,,,,,,,0.064,Requires 5 ingredient(s).,critical
+PROD_046,PRODUCT,,,,,,,,,0.065,Requires 7 ingredient(s).,critical
+PROD_047,PRODUCT,,,,,,,,,0.219,Requires 9 ingredient(s).,critical
+PROD_048,PRODUCT,,,,,,,,,0.159,Requires 13 ingredient(s).,critical
+PROD_049,PRODUCT,,,,,,,,,0.137,Requires 3 ingredient(s).,critical
+PROD_050,PRODUCT,,,,,,,,,0.166,Requires 6 ingredient(s).,critical
+PROD_051,PRODUCT,,,,,,,,,0.185,Requires 3 ingredient(s).,critical
+PROD_052,PRODUCT,,,,,,,,,0.215,Requires 4 ingredient(s).,critical
+PROD_053,PRODUCT,,,,,,,,,0.298,Requires 5 ingredient(s).,critical
+PROD_054,PRODUCT,,,,,,,,,0.237,Requires 13 ingredient(s).,critical
+PROD_055,PRODUCT,,,,,,,,,0.233,Requires 6 ingredient(s).,critical
+PROD_056,PRODUCT,,,,,,,,,0.089,Requires 7 ingredient(s).,critical
+PROD_057,PRODUCT,,,,,,,,,0.079,Requires 8 ingredient(s).,critical
+PROD_058,PRODUCT,,,,,,,,,0.162,Requires 14 ingredient(s).,critical
+PROD_059,PRODUCT,,,,,,,,,0.346,Requires 8 ingredient(s).,critical
+PROD_060,PRODUCT,,,,,,,,,0.217,Requires 4 ingredient(s).,critical
