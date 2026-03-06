@@ -1,0 +1,30 @@
+{
+  "total_nodes": 600,
+  "total_edges": 1593,
+  "infra_counts": {
+    "PORT": 15,
+    "PLANT": 90,
+    "WAREHOUSE": 120,
+    "DC": 175
+  },
+  "context_counts": {
+    "INGREDIENT": 140,
+    "PRODUCT": 60
+  },
+  "edge_type_counts": {
+    "SHIPS_TO": 419,
+    "REQUIRES": 387,
+    "REPLENISHES": 341,
+    "SUPPLIES": 266,
+    "IMPORTS_TO": 180
+  },
+  "ingredient_sourcing": {
+    "single": 42,
+    "dual_or_more": 98
+  },
+  "product_recipe": {
+    "min": 3,
+    "max": 14,
+    "avg": 6.45
+  }
+}
