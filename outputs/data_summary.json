@@ -1,0 +1,51 @@
+{
+  "node_count": 600,
+  "edge_count": 1593,
+  "feature_count": 26,
+  "label_counts_overall": {
+    "critical": 240,
+    "non-critical": 160,
+    "unlabelled": 200
+  },
+  "label_counts_by_node_type": {
+    "DC": {
+      "critical": 164,
+      "non-critical": 11
+    },
+    "INGREDIENT": {
+      "unlabelled": 140
+    },
+    "PLANT": {
+      "critical": 33,
+      "non-critical": 57
+    },
+    "PORT": {
+      "critical": 8,
+      "non-critical": 7
+    },
+    "PRODUCT": {
+      "unlabelled": 60
+    },
+    "WAREHOUSE": {
+      "critical": 35,
+      "non-critical": 85
+    }
+  },
+  "splits": {
+    "train": {
+      "total": 280,
+      "critical": 168,
+      "non-critical": 112
+    },
+    "val": {
+      "total": 60,
+      "critical": 36,
+      "non-critical": 24
+    },
+    "test": {
+      "total": 60,
+      "critical": 36,
+      "non-critical": 24
+    }
+  }
+}
