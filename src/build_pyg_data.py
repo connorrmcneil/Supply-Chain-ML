@@ -165,15 +165,15 @@ def main():
     master = load_and_merge()
     save_master(master)
 
-    # Step 3 – feature engineering
+    # Step 3 – feature engineering (including structural features from edges)
     print("\nStep 3: Building feature matrix …")
-    feature_matrix, feature_cols = build_feature_matrix(master)
+    edges = pd.read_csv(DATA_DIR / "edges.csv")
+    feature_matrix, feature_cols = build_feature_matrix(master, edges=edges)
     save_feature_columns(feature_cols)
     print(f"  Feature matrix shape: {feature_matrix.shape}")
 
     # Step 4 – graph structure
     print("\nStep 4: Building graph structure …")
-    edges = pd.read_csv(DATA_DIR / "edges.csv")
     node_id_to_idx = build_node_mapping(master)
     save_node_mapping(node_id_to_idx)
     edge_index = build_edge_index(edges, node_id_to_idx)

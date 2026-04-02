@@ -11,16 +11,25 @@ Feature encoding rules
   is_backup_capable, substitutable
                 → binary, kept as-is (NaN → 0)
 
+When an edges DataFrame is provided, 7 graph-derived structural features
+are appended (in_degree … capacity_utilization), computed by
+build_structural_features.py.
+
 Run:  python src/build_features.py
 """
 
 import json
 import pathlib
-from typing import List, Tuple
+import sys
+from typing import List, Optional, Tuple
 
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
+
+_SRC_DIR = pathlib.Path(__file__).resolve().parent
+if str(_SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(_SRC_DIR))
 
 PROCESSED_DIR = pathlib.Path(__file__).resolve().parent.parent / "data" / "processed"
 OUTPUTS_DIR = pathlib.Path(__file__).resolve().parent.parent / "outputs"
@@ -35,8 +44,16 @@ CONTINUOUS_COLS = [
 BINARY_COLS = ["is_backup_capable", "substitutable"]
 
 
-def build_feature_matrix(master: pd.DataFrame) -> Tuple[np.ndarray, List[str]]:
-    """Return (feature_matrix [N, F], feature_column_names)."""
+def build_feature_matrix(
+    master: pd.DataFrame,
+    edges: Optional[pd.DataFrame] = None,
+) -> Tuple[np.ndarray, List[str]]:
+    """Return (feature_matrix [N, F], feature_column_names).
+
+    When *edges* is supplied the 7 graph-derived structural features from
+    ``build_structural_features`` are appended, expanding the feature
+    dimension from 26 to 33.
+    """
     df = master.copy()
 
     # ── One-hot: node_type ───────────────────────────────────────────────
@@ -51,8 +68,6 @@ def build_feature_matrix(master: pd.DataFrame) -> Tuple[np.ndarray, List[str]]:
     backup_dummies = pd.get_dummies(df["backup_level_clean"], prefix="backup_level")
 
     # ── Scale continuous columns ─────────────────────────────────────────
-    # Fit each scaler only on the rows where the value is present so that
-    # 0-filled context rows don't skew the range.
     scaled_series = {}
     for col in CONTINUOUS_COLS:
         present = df[col].notna()
@@ -68,11 +83,16 @@ def build_feature_matrix(master: pd.DataFrame) -> Tuple[np.ndarray, List[str]]:
     # ── Binary columns (NaN → 0) ────────────────────────────────────────
     binary_df = df[BINARY_COLS].fillna(0).astype(float)
 
-    # ── Assemble ─────────────────────────────────────────────────────────
-    feature_df = pd.concat(
-        [node_type_dummies, region_dummies, backup_dummies, scaled_df, binary_df],
-        axis=1,
-    )
+    # ── Assemble base features ───────────────────────────────────────────
+    parts = [node_type_dummies, region_dummies, backup_dummies, scaled_df, binary_df]
+
+    # ── Structural features (optional) ───────────────────────────────────
+    if edges is not None:
+        from build_structural_features import compute_structural_features
+        struct_df, _ = compute_structural_features(master, edges)
+        parts.append(struct_df)
+
+    feature_df = pd.concat(parts, axis=1)
     feature_cols = list(feature_df.columns)
     feature_matrix = feature_df.values.astype(np.float32)
 

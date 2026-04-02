@@ -1,7 +1,7 @@
 {
   "node_count": 600,
   "edge_count": 1593,
-  "feature_count": 26,
+  "feature_count": 33,
   "label_counts_overall": {
     "critical": 240,
     "non-critical": 160,

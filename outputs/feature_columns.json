@@ -24,5 +24,12 @@
   "criticality_weight",
   "volume_weight",
   "is_backup_capable",
-  "substitutable"
+  "substitutable",
+  "in_degree",
+  "out_degree",
+  "total_degree",
+  "upstream_redundancy",
+  "downstream_fanout",
+  "reachable_dc_count",
+  "capacity_utilization"
 ]
