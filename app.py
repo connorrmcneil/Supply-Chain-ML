@@ -11,6 +11,7 @@ import pathlib
 import sys
 
 import pandas as pd
+import plotly.graph_objects as go
 import streamlit as st
 from streamlit_agraph import Config, Edge, Node, agraph
 
@@ -52,6 +53,60 @@ SHORT_TYPE_LABEL = {
     "PLANT": "Plant",
     "WAREHOUSE": "Warehouse",
     "DC": "Hub",
+}
+
+FRIENDLY_REL = {
+    "REPLENISHES": "Replenishes",
+    "SHIPS_TO": "Ships to",
+    "IMPORTS_TO": "Imports to",
+    "SUPPLIES": "Supplies",
+    "REQUIRES": "Requires",
+}
+
+# Map each data region to the states/provinces it covers for the choropleth.
+# US regions use FIPS codes; Canadian provinces use ISO-3166-2 codes.
+REGION_GEO = {
+    "NortheastUS": {
+        "label": "Northeast US",
+        "states": ["CT", "ME", "MA", "NH", "NJ", "NY", "PA", "RI", "VT"],
+        "lat": 42.0, "lon": -74.0,
+    },
+    "MidwestUS": {
+        "label": "Midwest US",
+        "states": ["IL", "IN", "IA", "KS", "MI", "MN", "MO", "NE", "ND", "OH", "SD", "WI"],
+        "lat": 42.0, "lon": -97.0,
+    },
+    "SoutheastUS": {
+        "label": "Southeast US",
+        "states": ["AL", "AR", "DE", "FL", "GA", "KY", "LA", "MD", "MS",
+                   "NC", "OK", "SC", "TN", "TX", "VA", "WV", "DC"],
+        "lat": 33.0, "lon": -85.0,
+    },
+    "Ontario": {
+        "label": "Ontario",
+        "provinces": ["ON"],
+        "lat": 50.0, "lon": -85.0,
+    },
+    "Quebec": {
+        "label": "Quebec",
+        "provinces": ["QC"],
+        "lat": 52.0, "lon": -72.0,
+    },
+    "BC": {
+        "label": "British Columbia",
+        "provinces": ["BC"],
+        "lat": 54.0, "lon": -125.0,
+    },
+    "Prairies": {
+        "label": "Prairies",
+        "provinces": ["AB", "SK", "MB"],
+        "lat": 53.0, "lon": -108.0,
+    },
+    "Atlantic": {
+        "label": "Atlantic",
+        "provinces": ["NB", "NS", "PE", "NL"],
+        "lat": 47.0, "lon": -63.0,
+    },
 }
 
 # ── Data loading ─────────────────────────────────────────────────────────────
@@ -193,30 +248,46 @@ filtered = df[mask].sort_values("gnn_prob", ascending=False).reset_index(drop=Tr
 st.sidebar.divider()
 
 st.sidebar.markdown("**SELECT FACILITY**")
-st.sidebar.caption("Facility ID")
 node_options = filtered["node_id"].tolist()
 if not node_options:
     st.warning("No facilities match the current filters.")
     st.stop()
 
-# Build friendly display names like "DC_022 (Ontario Hub)"
+# Build friendly display names like "DC_022 · Ontario · Hub"
 _label_map = {}
 for _nid in node_options:
     _r = df[df["node_id"] == _nid].iloc[0]
     _region = str(_r.get("region", "")) if pd.notna(_r.get("region")) else ""
-    _short = SHORT_TYPE_LABEL.get(_r["node_type"], "")
-    _suffix = f"{_region} {_short}".strip()
-    _label_map[f"{_nid} ({_suffix})" if _suffix else _nid] = _nid
+    _short = SHORT_TYPE_LABEL.get(_r["node_type"], _r["node_type"])
+    _suffix = f"{_region} · {_short}".strip(" ·")
+    _label_map[f"{_nid} — {_suffix}" if _suffix else _nid] = _nid
 
 display_options = list(_label_map.keys())
+search_query = st.sidebar.text_input(
+    "Search",
+    placeholder="Type to search (e.g. DC_022, Ontario, Plant...)",
+    label_visibility="collapsed",
+)
+
+if search_query:
+    query = search_query.strip().lower()
+    matched = [d for d in display_options if query in d.lower()]
+else:
+    matched = display_options
+
+if not matched:
+    st.sidebar.caption(f"No results for \"{search_query}\"")
+    matched = display_options
+
 selected_display = st.sidebar.selectbox(
-    "Search facility",
-    display_options,
+    "Facility",
+    matched,
     label_visibility="collapsed",
 )
 selected = _label_map.get(selected_display, node_options[0])
 row = df[df["node_id"] == selected].iloc[0]
 nid = row["node_id"]
+st.sidebar.caption(f"{len(matched)} of {len(display_options)} facilities shown")
 
 # ── Pre-compute for selected facility ────────────────────────────────────────
 
@@ -246,6 +317,102 @@ with tab_overview:
 
     st.markdown("")
 
+    # ── Region map ───────────────────────────────────────────────────────────
+    st.markdown("#### Facilities by region")
+
+    region_total = df["region"].value_counts().to_dict()
+    region_risk = critical_df["region"].value_counts().to_dict()
+
+    map_rows = []
+    for region_key, geo in REGION_GEO.items():
+        total = region_total.get(region_key, 0)
+        at_risk = region_risk.get(region_key, 0)
+        map_rows.append({
+            "region": geo["label"],
+            "total": total,
+            "at_risk": at_risk,
+            "lat": geo["lat"],
+            "lon": geo["lon"],
+        })
+    map_df = pd.DataFrame(map_rows)
+
+    max_total = max(map_df["total"].max(), 1)
+
+    fig = go.Figure()
+
+    fig.add_trace(go.Scattergeo(
+        lon=map_df["lon"],
+        lat=map_df["lat"],
+        text=map_df.apply(
+            lambda r: f"<b>{r['region']}</b><br>"
+                      f"{r['total']} facilities<br>"
+                      f"{r['at_risk']} high risk", axis=1),
+        hoverinfo="text",
+        marker=dict(
+            size=map_df["total"] / max_total * 45 + 15,
+            color=map_df["at_risk"],
+            colorscale=[[0, "#27ae60"], [0.5, "#f39c12"], [1, "#e74c3c"]],
+            opacity=0.85,
+            line=dict(width=1, color="#ffffff"),
+            sizemode="diameter",
+        ),
+        showlegend=False,
+    ))
+
+    fig.add_trace(go.Scattergeo(
+        lon=map_df["lon"],
+        lat=map_df["lat"],
+        text=map_df["total"].astype(str),
+        mode="text",
+        textfont=dict(size=13, color="white", family="Arial Black"),
+        hoverinfo="skip",
+        showlegend=False,
+    ))
+
+    fig.add_trace(go.Scattergeo(
+        lon=map_df["lon"],
+        lat=map_df["lat"] - 3,
+        text=map_df["region"],
+        mode="text",
+        textfont=dict(size=9, color="#aaaaaa"),
+        hoverinfo="skip",
+        showlegend=False,
+    ))
+
+    fig.update_geos(
+        scope="north america",
+        showlakes=True,
+        lakecolor="#0e1117",
+        showocean=True,
+        oceancolor="#0e1117",
+        showland=True,
+        landcolor="#1a2332",
+        showcountries=True,
+        countrycolor="#3a4a5c",
+        countrywidth=1,
+        showsubunits=True,
+        subunitcolor="#2c3e50",
+        subunitwidth=0.5,
+        showcoastlines=True,
+        coastlinecolor="#3a4a5c",
+        coastlinewidth=0.8,
+        bgcolor="#0e1117",
+        projection_type="natural earth",
+        center=dict(lat=45, lon=-95),
+        lonaxis_range=[-135, -55],
+        lataxis_range=[28, 60],
+    )
+
+    fig.update_layout(
+        margin=dict(l=0, r=0, t=0, b=0),
+        paper_bgcolor="#0e1117",
+        height=480,
+        dragmode=False,
+    )
+
+    st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+
+    # ── Priority table ───────────────────────────────────────────────────────
     st.markdown("#### Highest-priority facilities to address")
     st.caption("Ranked by a combination of risk score, downstream impact, product exposure, and number of actionable findings.")
 
@@ -285,83 +452,155 @@ with tab_overview:
         use_container_width=True,
     )
 
-    st.markdown("")
-
-    chart_left, chart_right = st.columns(2)
-    with chart_left:
-        st.markdown("#### High-risk facilities by type")
-        type_counts = critical_df["node_type"].value_counts().rename(
-            index=FRIENDLY_TYPE
-        )
-        st.bar_chart(type_counts)
-
-    with chart_right:
-        st.markdown("#### High-risk facilities by region")
-        region_counts = critical_df["region"].value_counts()
-        st.bar_chart(region_counts)
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # TAB 2: FACILITY DETAILS
 # ═══════════════════════════════════════════════════════════════════════════════
 
 with tab_explorer:
     is_high_risk = row["gnn_pred"] == 1
-    risk_badge = "High risk" if is_high_risk else "Low risk"
-    risk_color = "red" if is_high_risk else "green"
+    facility_type = FRIENDLY_TYPE.get(row["node_type"], row["node_type"])
+    region_name = row.get("region", "—")
 
+    # ── Header ───────────────────────────────────────────────────────────────
     st.markdown(f"### {nid}")
-    st.markdown(
-        f"**{FRIENDLY_TYPE.get(row['node_type'], row['node_type'])}** · "
-        f"{row.get('region', '—')} · "
-        f":{risk_color}[{risk_badge}] · "
-        f"Risk score: **{row['gnn_prob']:.0%}**"
-    )
+
+    if is_high_risk:
+        st.markdown(
+            f"**{facility_type}** in **{region_name}** · "
+            f":red[**High risk**] · "
+            f"Risk score: **{row['gnn_prob']:.0%}**"
+        )
+        score_pct = int(row["gnn_prob"] * 100)
+        if score_pct >= 75:
+            score_desc = "very high likelihood of being operationally critical"
+        elif score_pct >= 50:
+            score_desc = "moderate-to-high likelihood of being operationally critical"
+        else:
+            score_desc = "moderate likelihood of being operationally critical"
+        st.caption(
+            f"A risk score of {score_pct}% means this facility has a {score_desc}. "
+            "Disruption here would likely cascade to downstream operations."
+        )
+    else:
+        st.markdown(
+            f"**{facility_type}** in **{region_name}** · "
+            f":green[**Low risk**] · "
+            f"Risk score: **{row['gnn_prob']:.0%}**"
+        )
+        st.caption(
+            f"A risk score of {int(row['gnn_prob'] * 100)}% means this facility "
+            "is unlikely to cause significant disruption if taken offline."
+        )
 
     st.markdown("")
 
-    col_details, col_actions = st.columns(2)
+    # ── Impact banner ────────────────────────────────────────────────────────
+    impact_parts = []
+    if br["reachable_infra"] > 0:
+        impact_parts.append(f"**{br['reachable_infra']}** downstream facilities")
+    if br["dc_count"] > 0:
+        impact_parts.append(f"**{br['dc_count']}** distribution centers")
+    if pe["product_count"] > 0:
+        impact_parts.append(f"**{pe['product_count']}** products")
 
-    with col_details:
+    if impact_parts:
+        impact_text = (
+            f"An outage at **{nid}** could disrupt "
+            + ", ".join(impact_parts[:-1])
+            + (f", and {impact_parts[-1]}" if len(impact_parts) > 1 else impact_parts[0])
+            + ". Review the recommended actions below to reduce exposure."
+        )
+    else:
+        impact_text = f"**{nid}** has minimal downstream exposure."
+    st.info(impact_text)
+
+    dm1, dm2, dm3 = st.columns(3)
+    dm1.metric("Downstream facilities", br["reachable_infra"])
+    dm2.metric("Distribution centers", br["dc_count"])
+    dm3.metric("Products exposed", pe["product_count"])
+
+    st.markdown("")
+
+    # ── Two-column body ──────────────────────────────────────────────────────
+    col_left, col_right = st.columns(2)
+
+    with col_left:
+        # ── Facility profile ─────────────────────────────────────────────────
         st.markdown("#### Facility profile")
-        details = {
-            "Capacity": f"{int(row.get('capacity_units', 0)):,}" if pd.notna(row.get("capacity_units")) else "—",
-            "Throughput": f"{int(row.get('throughput_units', 0)):,}" if pd.notna(row.get("throughput_units")) else "—",
-            "Recovery time": f"{int(row.get('recovery_days', 0))} days" if pd.notna(row.get("recovery_days")) else "—",
-            "Backup level": str(row.get("backup_level", "—")).capitalize(),
-            "Backup capable": "Yes" if row.get("is_backup_capable") == 1 else "No",
-        }
-        st.table(pd.DataFrame(details.items(), columns=["", "Value"]))
+        profile = pd.DataFrame([
+            ("Type", facility_type),
+            ("Region", region_name),
+            ("Capacity", f"{int(row.get('capacity_units', 0)):,} units" if pd.notna(row.get("capacity_units")) else "—"),
+            ("Throughput", f"{int(row.get('throughput_units', 0)):,} units" if pd.notna(row.get("throughput_units")) else "—"),
+            ("Recovery time", f"{int(row.get('recovery_days', 0))} days" if pd.notna(row.get("recovery_days")) else "—"),
+            ("Backup level", str(row.get("backup_level", "—")).capitalize()),
+            ("Backup capable", "Yes" if row.get("is_backup_capable") == 1 else "No"),
+        ], columns=["Attribute", "Value"])
+        st.dataframe(profile, use_container_width=True, hide_index=True)
 
-    with col_actions:
+        # ── Upstream dependencies ────────────────────────────────────────────
+        st.markdown("")
+        st.markdown("#### Upstream dependencies")
+        st.caption("Facilities that feed into this one. Disruption at any of these could affect this facility's operations.")
+        us_neighbours = upstream_adj.get(nid, [])
+        if us_neighbours:
+            us_rows = []
+            for uid, rel in us_neighbours:
+                utype = FRIENDLY_TYPE.get(_node_type(uid), _node_type(uid))
+                is_risky = pred_lookup.get(uid) == 1
+                status = "High risk" if is_risky else "OK"
+                us_rows.append((uid, utype, FRIENDLY_REL.get(rel, rel), status))
+            us_df = pd.DataFrame(us_rows, columns=["Facility", "Type", "Relationship", "Status"])
+            st.dataframe(us_df, use_container_width=True, hide_index=True)
+            risky_upstream = [r[0] for r in us_rows if r[3] == "High risk"]
+            if risky_upstream:
+                st.caption(f":red[**Note:**] {len(risky_upstream)} upstream "
+                           f"{'dependency is' if len(risky_upstream) == 1 else 'dependencies are'} "
+                           "also flagged as high risk.")
+        else:
+            st.write("No upstream dependencies — this is a source facility.")
+
+    with col_right:
+        # ── Why flagged + actions ────────────────────────────────────────────
         if suggs:
             st.markdown("#### Why this facility is flagged")
-            for name, _ in suggs:
-                st.markdown(f"- {name}")
+            for name, detail in suggs:
+                st.markdown(f"**{name}** — {detail}")
 
             st.markdown("")
             st.markdown("#### Recommended actions")
-            for _, text in suggs:
-                st.markdown(f"- {text}")
+            action_map = {
+                "No backup": "Establish backup capacity or identify an alternate facility.",
+                "Single port": "Qualify a second import port to eliminate single-source risk.",
+                "High fan-out": "Add a parallel replenishment source to distribute load.",
+                "Slow recovery": f"Target recovery time under 10 days (currently {int(row.get('recovery_days', 0))}).",
+                "Not backup-capable": "Invest in making this facility backup-capable.",
+                "Large blast radius": "Prioritize redundancy — too many facilities depend on this one.",
+                "High product exposure": "Explore alternate sourcing for the most impacted products.",
+            }
+            for name, _ in suggs:
+                action = action_map.get(name, "Review and mitigate.")
+                st.markdown(f"- {action}")
+
+            # ── What to do first ─────────────────────────────────────────────
+            st.markdown("")
+            st.markdown("#### What to do first")
+            if any(name == "No backup" for name, _ in suggs):
+                first_step = "This facility has **no backup**. Start by identifying or provisioning backup capacity."
+            elif any(name == "Slow recovery" for name, _ in suggs):
+                first_step = (f"Recovery time is **{int(row.get('recovery_days', 0))} days**. "
+                              "Start by reviewing what's driving the long recovery window and whether it can be shortened.")
+            elif any(name == "Large blast radius" for name, _ in suggs):
+                first_step = (f"This facility affects **{br['dc_count']}** distribution centers. "
+                              "Start by mapping which downstream sites have no alternate source.")
+            elif any(name == "Single port" for name, _ in suggs):
+                first_step = "This plant depends on a single port. Start by qualifying a second import path."
+            else:
+                first_step = "Review the recommended actions above and prioritize based on cost and timeline."
+            st.success(first_step)
         else:
             st.markdown("#### Risk assessment")
-            st.success("No major risk factors identified for this facility.")
-
-    st.markdown("")
-
-    summary = f"If **{nid}** goes offline"
-    if br["reachable_infra"] > 0:
-        summary += f", **{br['reachable_infra']}** downstream facilities are affected"
-        if br["dc_count"] > 0:
-            summary += f" (including **{br['dc_count']}** distribution centers)"
-    if pe["product_count"] > 0:
-        summary += f" and **{pe['product_count']}** products are exposed to disruption"
-    summary += "."
-    st.info(summary)
-
-    dm1, dm2, dm3 = st.columns(3)
-    dm1.metric("Downstream facilities at risk", br["reachable_infra"])
-    dm2.metric("Distribution centers at risk", br["dc_count"])
-    dm3.metric("Products exposed", pe["product_count"])
+            st.success("No major risk factors identified for this facility. No immediate action required.")
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # TAB 3: NETWORK MAP
@@ -369,12 +608,16 @@ with tab_explorer:
 
 with tab_graph:
     st.markdown(f"#### Local network: {nid}")
-    st.caption("Shows the facilities directly connected to the selected facility in the supply chain.")
+    st.caption("Hover over a node to see its name and type. "
+               "Red borders indicate high-risk facilities.")
 
-    hops = st.radio("Network depth", [1, 2], horizontal=True, index=0,
+    hops = st.radio("Network depth", [1, 2, 3], horizontal=True, index=1,
                     help="How many steps away from the selected facility to show.")
 
     ego_nodes, ego_edges = ego_graph(nid, downstream_adj, upstream_adj, hops=hops)
+
+    st.caption(f"Showing **{len(ego_nodes)}** facilities and **{len(ego_edges)}** connections "
+               f"within {hops} step(s).")
 
     vis_nodes = []
     for n in ego_nodes:
@@ -383,26 +626,31 @@ with tab_graph:
         is_selected = n == nid
         is_critical_pred = pred_lookup.get(n) == 1
 
-        size = 30 if is_selected else 18
+        size = 40 if is_selected else 22
         border_color = "#e74c3c" if is_critical_pred else color
         border_width = 4 if is_selected or is_critical_pred else 1
 
         friendly_label = FRIENDLY_TYPE.get(nt, nt)
-        tooltip = f"{n} ({friendly_label})"
+        tooltip = f"{n}\n{friendly_label}"
         if is_critical_pred:
-            tooltip += " — High risk"
+            tooltip += "\nHigh risk"
+
+        # Only label the selected node; others show on hover
+        label = n if is_selected else ""
 
         vis_nodes.append(Node(
             id=n,
-            label=n,
+            label=label,
             color={
                 "background": color,
                 "border": border_color,
-                "highlight": {"background": color, "border": "#333333"},
+                "highlight": {"background": color, "border": "#ffffff"},
             },
             size=size,
             borderWidth=border_width,
             title=tooltip,
+            font={"color": "#ffffff", "size": 11, "face": "arial",
+                  "strokeWidth": 2, "strokeColor": "#000000"},
         ))
 
     vis_edges = []
@@ -410,32 +658,66 @@ with tab_graph:
         vis_edges.append(Edge(
             source=src,
             target=dst,
-            label=rel,
-            color="#888888",
+            color={"color": "#555555", "highlight": "#aaaaaa"},
+            smooth={"type": "continuous"},
+            width=1.5,
+            font={"color": "#888888", "size": 9, "strokeWidth": 0, "align": "middle"},
+            label=FRIENDLY_REL.get(rel, rel),
         ))
 
     config = Config(
         width=900,
-        height=500,
+        height=600,
         directed=True,
         physics=True,
-        hierarchical=True,
+        hierarchical=False,
+        solver="forceAtlas2Based",
+        stabilization=True,
+        fit=True,
+        minVelocity=0.75,
+        maxVelocity=30,
+        timestep=0.35,
     )
 
-    agraph(nodes=vis_nodes, edges=vis_edges, config=config)
+    graph_col, legend_col = st.columns([5, 1])
 
-    st.caption(
-        "**Legend:** "
-        "Blue = Port · "
-        "Orange = Plant · "
-        "Green = Warehouse · "
-        "Purple = Distribution Center · "
-        "Gray = Product/Ingredient · "
-        "Red border = High risk · "
-        "Large = Selected facility"
-    )
-    st.caption(f"{len(ego_nodes)} facilities and {len(ego_edges)} connections shown "
-               f"within {hops} step(s) of {nid}.")
+    with graph_col:
+        agraph(nodes=vis_nodes, edges=vis_edges, config=config)
+
+    with legend_col:
+        st.markdown("")
+        st.markdown("")
+        st.markdown("**Legend**")
+        legend_items = [
+            ("#4a90d9", "Port"),
+            ("#e8943a", "Plant"),
+            ("#50b87a", "Warehouse"),
+            ("#9b59b6", "Distribution Center"),
+            ("#aaaaaa", "Product / Ingredient"),
+        ]
+        for color, label in legend_items:
+            st.markdown(
+                f'<span style="display:inline-block;width:12px;height:12px;'
+                f'border-radius:50%;background:{color};margin-right:8px;'
+                f'vertical-align:middle;"></span>'
+                f'<span style="color:#cccccc;font-size:13px;">{label}</span>',
+                unsafe_allow_html=True,
+            )
+        st.markdown("")
+        st.markdown(
+            '<span style="display:inline-block;width:12px;height:12px;'
+            'border-radius:50%;background:#333;border:2px solid #e74c3c;'
+            'margin-right:8px;vertical-align:middle;"></span>'
+            '<span style="color:#cccccc;font-size:13px;">High risk</span>',
+            unsafe_allow_html=True,
+        )
+        st.markdown(
+            '<span style="display:inline-block;width:16px;height:16px;'
+            'border-radius:50%;background:#555;margin-right:6px;'
+            'vertical-align:middle;"></span>'
+            '<span style="color:#cccccc;font-size:13px;">Selected</span>',
+            unsafe_allow_html=True,
+        )
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # TAB 4: DOWNSTREAM IMPACT
