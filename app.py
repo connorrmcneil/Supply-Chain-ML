@@ -9,6 +9,7 @@ Run:  streamlit run app.py
 
 import pathlib
 import sys
+from collections import Counter
 
 import pandas as pd
 import plotly.graph_objects as go
@@ -671,36 +672,63 @@ with tab_graph:
         directed=True,
         physics=True,
         hierarchical=False,
-        solver="forceAtlas2Based",
-        stabilization=True,
-        fit=True,
-        minVelocity=0.75,
-        maxVelocity=30,
-        timestep=0.35,
     )
+    # Override physics with full vis.js settings for proper stabilization
+    config.physics = {
+        "enabled": True,
+        "solver": "forceAtlas2Based",
+        "forceAtlas2Based": {
+            "gravitationalConstant": -80,
+            "centralGravity": 0.015,
+            "springLength": 150,
+            "springConstant": 0.08,
+            "damping": 0.4,
+            "avoidOverlap": 0.8,
+        },
+        "stabilization": {
+            "enabled": True,
+            "iterations": 300,
+            "updateInterval": 25,
+            "fit": True,
+        },
+        "minVelocity": 0.75,
+        "maxVelocity": 30,
+        "timestep": 0.35,
+    }
 
     graph_col, legend_col = st.columns([5, 1])
 
     with graph_col:
         agraph(nodes=vis_nodes, edges=vis_edges, config=config)
 
+    # Count node types and high-risk nodes in the current view
+    _type_counts = Counter(_node_type(n) for n in ego_nodes)
+    _risk_count = sum(1 for n in ego_nodes if pred_lookup.get(n) == 1)
+
     with legend_col:
         st.markdown("")
         st.markdown("")
         st.markdown("**Legend**")
         legend_items = [
-            ("#4a90d9", "Port"),
-            ("#e8943a", "Plant"),
-            ("#50b87a", "Warehouse"),
-            ("#9b59b6", "Distribution Center"),
-            ("#aaaaaa", "Product / Ingredient"),
+            ("#4a90d9", "Port", "PORT"),
+            ("#e8943a", "Plant", "PLANT"),
+            ("#50b87a", "Warehouse", "WAREHOUSE"),
+            ("#9b59b6", "Dist. Center", "DC"),
+            ("#aaaaaa", "Product / Ingr.", "PROD_ING"),
         ]
-        for color, label in legend_items:
+        for color, label, type_key in legend_items:
+            if type_key == "PROD_ING":
+                count = _type_counts.get("PRODUCT", 0) + _type_counts.get("INGREDIENT", 0)
+            else:
+                count = _type_counts.get(type_key, 0)
+            if count == 0:
+                continue
             st.markdown(
                 f'<span style="display:inline-block;width:12px;height:12px;'
                 f'border-radius:50%;background:{color};margin-right:8px;'
                 f'vertical-align:middle;"></span>'
-                f'<span style="color:#cccccc;font-size:13px;">{label}</span>',
+                f'<span style="color:#cccccc;font-size:13px;">{label}</span>'
+                f'<span style="color:#888888;font-size:12px;margin-left:4px;">({count})</span>',
                 unsafe_allow_html=True,
             )
         st.markdown("")
@@ -708,7 +736,8 @@ with tab_graph:
             '<span style="display:inline-block;width:12px;height:12px;'
             'border-radius:50%;background:#333;border:2px solid #e74c3c;'
             'margin-right:8px;vertical-align:middle;"></span>'
-            '<span style="color:#cccccc;font-size:13px;">High risk</span>',
+            f'<span style="color:#cccccc;font-size:13px;">High risk</span>'
+            f'<span style="color:#888888;font-size:12px;margin-left:4px;">({_risk_count})</span>',
             unsafe_allow_html=True,
         )
         st.markdown(
