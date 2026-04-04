@@ -47,6 +47,13 @@ FRIENDLY_TYPE = {
     "INGREDIENT": "Ingredient",
 }
 
+SHORT_TYPE_LABEL = {
+    "PORT": "Port",
+    "PLANT": "Plant",
+    "WAREHOUSE": "Warehouse",
+    "DC": "Hub",
+}
+
 # ── Data loading ─────────────────────────────────────────────────────────────
 
 @st.cache_data
@@ -114,6 +121,29 @@ def get_suggestions(row, upstream_adj, downstream_adj, dc_count, prod_count):
 
 st.set_page_config(page_title="Supply Chain Risk", layout="wide")
 
+# ── Sidebar & pill styling ───────────────────────────────────────────────────
+
+st.markdown("""
+<style>
+    /* Uniform-width pills in sidebar multiselects */
+    section[data-testid="stSidebar"] [data-baseweb="tag"] {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+    /* Sidebar section spacing */
+    section[data-testid="stSidebar"] hr {
+        margin: 0.6rem 0;
+    }
+    /* Profile button styling */
+    section[data-testid="stSidebar"] .stButton > button[kind="primary"] {
+        background: linear-gradient(135deg, #1a8a7d, #17a08e);
+        border: none;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 df, edges, downstream_adj, upstream_adj = load_data()
 dc_counts, prod_counts = precompute_blast(df, edges)
 df["downstream_dcs"] = df["node_id"].map(dc_counts)
@@ -128,18 +158,30 @@ st.caption("Identify high-risk facilities, understand downstream impact, and pri
 
 # ── Sidebar ──────────────────────────────────────────────────────────────────
 
-st.sidebar.markdown("### Filters")
+st.sidebar.markdown("**FILTERS**")
 
+st.sidebar.caption("Facility Types")
 all_types = sorted(df["node_type"].unique())
 friendly_options = [FRIENDLY_TYPE.get(t, t) for t in all_types]
 reverse_type = {v: k for k, v in FRIENDLY_TYPE.items()}
-sel_friendly = st.sidebar.multiselect("Facility type", friendly_options, default=friendly_options)
+sel_friendly = st.sidebar.multiselect(
+    "Facility Types", friendly_options, default=friendly_options,
+    label_visibility="collapsed",
+)
 sel_types = [reverse_type.get(f, f) for f in sel_friendly]
 
+st.sidebar.caption("Regions")
 all_regions = sorted(df["region"].dropna().unique())
-sel_regions = st.sidebar.multiselect("Region", all_regions, default=all_regions)
+sel_regions = st.sidebar.multiselect(
+    "Regions", all_regions, default=all_regions,
+    label_visibility="collapsed",
+)
 
-score_range = st.sidebar.slider("Risk score", 0.0, 1.0, (0.0, 1.0), step=0.01)
+st.sidebar.divider()
+
+st.sidebar.markdown("**ANALYSIS**")
+
+score_range = st.sidebar.slider("Risk Score", 0.0, 1.0, (0.0, 1.0), step=0.01)
 
 mask = (
     df["node_type"].isin(sel_types)
@@ -149,13 +191,30 @@ mask = (
 filtered = df[mask].sort_values("gnn_prob", ascending=False).reset_index(drop=True)
 
 st.sidebar.divider()
-st.sidebar.markdown("### Select facility")
+
+st.sidebar.markdown("**SELECT FACILITY**")
+st.sidebar.caption("Facility ID")
 node_options = filtered["node_id"].tolist()
 if not node_options:
     st.warning("No facilities match the current filters.")
     st.stop()
 
-selected = st.sidebar.selectbox("Facility", node_options, label_visibility="collapsed")
+# Build friendly display names like "DC_022 (Ontario Hub)"
+_label_map = {}
+for _nid in node_options:
+    _r = df[df["node_id"] == _nid].iloc[0]
+    _region = str(_r.get("region", "")) if pd.notna(_r.get("region")) else ""
+    _short = SHORT_TYPE_LABEL.get(_r["node_type"], "")
+    _suffix = f"{_region} {_short}".strip()
+    _label_map[f"{_nid} ({_suffix})" if _suffix else _nid] = _nid
+
+display_options = list(_label_map.keys())
+selected_display = st.sidebar.selectbox(
+    "Search facility",
+    display_options,
+    label_visibility="collapsed",
+)
+selected = _label_map.get(selected_display, node_options[0])
 row = df[df["node_id"] == selected].iloc[0]
 nid = row["node_id"]
 
