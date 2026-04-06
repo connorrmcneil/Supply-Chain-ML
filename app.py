@@ -437,21 +437,34 @@ with tab_overview:
         + (fix_df["rule_count"] / max_rules) * 0.1
     )
     fix_df["suggested_actions"] = fix_df["node_id"].map(st_map)
-    top_fix = fix_df.nlargest(10, "priority")[
-        ["node_id", "node_type", "gnn_prob", "downstream_dcs", "exposed_products", "suggested_actions"]
-    ].rename(columns={
+
+    _rename_cols = {
         "node_id": "Facility",
-        "node_type": "Type",
         "gnn_prob": "Risk score",
         "downstream_dcs": "DCs affected",
         "exposed_products": "Products at risk",
         "suggested_actions": "Recommended actions",
-    }).reset_index(drop=True)
-    top_fix.index = top_fix.index + 1
-    st.dataframe(
-        top_fix.style.format({"Risk score": "{:.2f}"}, na_rep="—"),
-        use_container_width=True,
-    )
+    }
+    _display_cols = ["node_id", "gnn_prob", "downstream_dcs", "exposed_products", "suggested_actions"]
+
+    type_tabs = st.tabs(["Ports", "Plants", "Warehouses", "Distribution Centers"])
+    for tab, (nt, label) in zip(type_tabs, [
+        ("PORT", "Ports"),
+        ("PLANT", "Plants"),
+        ("WAREHOUSE", "Warehouses"),
+        ("DC", "Distribution Centers"),
+    ]):
+        with tab:
+            type_slice = fix_df[fix_df["node_type"] == nt].nlargest(3, "priority")
+            if type_slice.empty:
+                st.caption(f"No high-risk {label.lower()} found.")
+            else:
+                display = type_slice[_display_cols].rename(columns=_rename_cols).reset_index(drop=True)
+                display.index = display.index + 1
+                st.dataframe(
+                    display.style.format({"Risk score": "{:.2f}"}, na_rep="—"),
+                    use_container_width=True,
+                )
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # TAB 2: FACILITY DETAILS
