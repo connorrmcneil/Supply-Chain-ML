@@ -443,9 +443,8 @@ with tab_overview:
         "gnn_prob": "Risk score",
         "downstream_dcs": "DCs affected",
         "exposed_products": "Products at risk",
-        "suggested_actions": "Recommended actions",
     }
-    _display_cols = ["node_id", "gnn_prob", "downstream_dcs", "exposed_products", "suggested_actions"]
+    _display_cols = ["node_id", "gnn_prob", "downstream_dcs", "exposed_products"]
 
     type_tabs = st.tabs(["Ports", "Plants", "Warehouses", "Distribution Centers"])
     for tab, (nt, label) in zip(type_tabs, [
