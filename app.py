@@ -127,8 +127,11 @@ def load_data():
         df = df.merge(ens[["node_id", "rf_prob", "ensemble_prob", "ensemble_pred"]],
                        on="node_id", how="left")
 
+    rev_path = ROOT / "data" / "processed" / "product_revenue.csv"
+    product_revenue = pd.read_csv(rev_path) if rev_path.exists() else pd.DataFrame(columns=["node_id", "revenue_per_day"])
+
     downstream_adj, upstream_adj = build_adjacency(edges)
-    return df, edges, downstream_adj, upstream_adj
+    return df, edges, downstream_adj, upstream_adj, product_revenue
 
 
 @st.cache_data
@@ -205,7 +208,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-df, edges, downstream_adj, upstream_adj = load_data()
+df, edges, downstream_adj, upstream_adj, product_revenue = load_data()
 df = df.copy()  # avoid mutating cached DataFrame
 dc_counts, prod_counts = precompute_blast(df, edges)
 df["downstream_dcs"] = df["node_id"].map(dc_counts)
@@ -324,8 +327,8 @@ suggs = get_suggestions(row, upstream_adj, downstream_adj,
 
 # ── Tabs ─────────────────────────────────────────────────────────────────────
 
-tab_overview, tab_explorer, tab_graph, tab_blast, tab_errors = st.tabs(
-    ["Overview", "Facility Details", "Network Map", "Downstream Impact", "Model Accuracy"]
+tab_overview, tab_explorer, tab_graph, tab_blast, tab_revenue, tab_errors = st.tabs(
+    ["Overview", "Facility Details", "Network Map", "Downstream Impact", "Revenue Impact", "Model Accuracy"]
 )
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -856,7 +859,89 @@ with tab_blast:
             st.dataframe(prod_df, use_container_width=True, hide_index=True)
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# TAB 5: MODEL ACCURACY
+# TAB 5: REVENUE IMPACT
+# ═══════════════════════════════════════════════════════════════════════════════
+
+with tab_revenue:
+    st.markdown(f"#### Revenue impact: {nid}")
+    st.caption("Estimates daily revenue at risk if this facility goes offline, "
+               "based on the products whose supply chain passes through it.")
+
+    exposed_products = pe["products"]
+
+    if not exposed_products:
+        st.info(f"**{nid}** has no product exposure — revenue impact analysis is not applicable "
+                "for this facility type or position in the supply chain.")
+    else:
+        rev_lookup = dict(zip(product_revenue["node_id"], product_revenue["revenue_per_day"]))
+
+        rev_rows = []
+        missing_count = 0
+        for pid in exposed_products:
+            rpd = rev_lookup.get(pid)
+            if rpd is not None:
+                rev_rows.append({"Product": pid, "Revenue per day ($)": rpd})
+            else:
+                missing_count += 1
+
+        if not rev_rows:
+            st.warning("Revenue data is not available for any of the exposed products.")
+        else:
+            rev_df = pd.DataFrame(rev_rows)
+            daily_total = rev_df["Revenue per day ($)"].sum()
+
+            recovery = row.get("recovery_days")
+            if pd.notna(recovery) and float(recovery) > 0:
+                default_downtime = int(float(recovery))
+                fallback_used = False
+            else:
+                default_downtime = 7
+                fallback_used = True
+
+            downtime = st.slider(
+                "Estimated downtime (days)", min_value=1, max_value=90,
+                value=default_downtime,
+                help="Adjust to model different outage scenarios.",
+            )
+
+            if fallback_used:
+                st.caption("Recovery time not available for this facility — using 7-day default.")
+
+            total_impact = daily_total * downtime
+
+            rm1, rm2, rm3, rm4 = st.columns(4)
+            rm1.metric("Daily revenue at risk", f"${daily_total:,.0f}")
+            rm2.metric("Total over downtime", f"${total_impact:,.0f}")
+            rm3.metric("Products affected", len(rev_rows))
+            rm4.metric("Downtime (days)", downtime)
+
+            if missing_count > 0:
+                st.caption(f":orange[**Note:**] {missing_count} exposed product(s) excluded — no revenue data available.")
+
+            st.markdown("")
+            st.markdown("**Exposed products**")
+            display_rev = rev_df.sort_values("Revenue per day ($)", ascending=False).reset_index(drop=True)
+            display_rev.index = display_rev.index + 1
+            st.dataframe(
+                display_rev.style.format({"Revenue per day ($)": "${:,.0f}"}, na_rep="—"),
+                use_container_width=True,
+            )
+
+            with st.expander("Assumptions"):
+                st.markdown(
+                    "- Revenue figures are **illustrative** — not actual financial data.\n"
+                    "- Each product's `volume_weight` is normalized into a **portfolio share** "
+                    "(all shares sum to 1). Revenue per product = share x total firm daily revenue ($500k illustrative).\n"
+                    "- **Daily at risk** is always ≤ total firm illustrative daily revenue.\n"
+                    "- Assumes a **complete outage** — no partial capacity or workarounds.\n"
+                    "- No product substitution is modelled — each exposed product is counted at full value.\n"
+                    "- Product exposure is **approximate** — a product is listed if any of its "
+                    "required ingredients flow through the selected facility, even if alternate paths exist.\n"
+                    "- Downtime defaults to the facility's recovery time; override with the slider above."
+                )
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# TAB 6: MODEL ACCURACY
 # ═══════════════════════════════════════════════════════════════════════════════
 
 with tab_errors:
