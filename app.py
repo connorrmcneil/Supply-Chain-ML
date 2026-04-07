@@ -119,8 +119,13 @@ def load_data():
     edges = pd.read_csv(ROOT / "data" / "labelled_data" / "edges.csv")
 
     df = master.merge(preds[["node_id", "gnn_pred", "gnn_prob"]], on="node_id", how="inner")
-    df["predicted_label"] = df["gnn_pred"].map({1: "Critical", 0: "Non-Critical"})
     df["true_label"] = df["label"].fillna("—")
+
+    ens_path = ROOT / "outputs" / "ensemble_predictions.csv"
+    if ens_path.exists():
+        ens = pd.read_csv(ens_path)
+        df = df.merge(ens[["node_id", "rf_prob", "ensemble_prob", "ensemble_pred"]],
+                       on="node_id", how="left")
 
     downstream_adj, upstream_adj = build_adjacency(edges)
     return df, edges, downstream_adj, upstream_adj
@@ -142,7 +147,7 @@ def precompute_blast(_df, _edges):
 
 def get_suggestions(row, upstream_adj, downstream_adj, dc_count, prod_count):
     suggestions = []
-    is_critical = row["gnn_pred"] == 1
+    is_critical = row["active_pred"] == 1
 
     if is_critical and str(row.get("backup_level", "")).lower() == "none":
         suggestions.append(("No backup", "Add backup capacity for this facility"))
@@ -201,11 +206,10 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 df, edges, downstream_adj, upstream_adj = load_data()
+df = df.copy()  # avoid mutating cached DataFrame
 dc_counts, prod_counts = precompute_blast(df, edges)
 df["downstream_dcs"] = df["node_id"].map(dc_counts)
 df["exposed_products"] = df["node_id"].map(prod_counts)
-
-pred_lookup = dict(zip(df["node_id"], df["gnn_pred"]))
 
 # ── Header ───────────────────────────────────────────────────────────────────
 
@@ -237,14 +241,35 @@ st.sidebar.divider()
 
 st.sidebar.markdown("**ANALYSIS**")
 
+has_ensemble = "ensemble_prob" in df.columns
+score_source = st.sidebar.radio(
+    "Score source",
+    ["Ensemble", "GraphSAGE"] if has_ensemble else ["GraphSAGE"],
+    index=0,
+    help="Ensemble blends Random Forest (60%) and GraphSAGE (40%) probabilities.",
+)
+
+if score_source == "Ensemble" and has_ensemble:
+    df["active_prob"] = df["ensemble_prob"]
+    df["active_pred"] = df["ensemble_pred"]
+else:
+    df["active_prob"] = df["gnn_prob"]
+    df["active_pred"] = df["gnn_pred"]
+
+df["predicted_label"] = df["active_pred"].map({1: "Critical", 0: "Non-Critical"})
+pred_lookup = dict(zip(df["node_id"], df["active_pred"]))
+
+if score_source == "Ensemble":
+    st.sidebar.caption("Dashboard uses a single train/test split. Report metrics are 5-fold CV.")
+
 score_range = st.sidebar.slider("Risk Score", 0.0, 1.0, (0.0, 1.0), step=0.01)
 
 mask = (
     df["node_type"].isin(sel_types)
     & (df["region"].isin(sel_regions) | df["region"].isna())
-    & df["gnn_prob"].between(*score_range)
+    & df["active_prob"].between(*score_range)
 )
-filtered = df[mask].sort_values("gnn_prob", ascending=False).reset_index(drop=True)
+filtered = df[mask].sort_values("active_prob", ascending=False).reset_index(drop=True)
 
 st.sidebar.divider()
 
@@ -308,12 +333,12 @@ tab_overview, tab_explorer, tab_graph, tab_blast, tab_errors = st.tabs(
 # ═══════════════════════════════════════════════════════════════════════════════
 
 with tab_overview:
-    critical_df = df[df["gnn_pred"] == 1]
+    critical_df = df[df["active_pred"] == 1]
 
     m1, m2, m3, m4 = st.columns(4)
     m1.metric("Total facilities", len(df))
     m2.metric("Flagged as high risk", len(critical_df))
-    m3.metric("Avg risk score", f"{df['gnn_prob'].mean():.2f}")
+    m3.metric("Avg risk score", f"{df['active_prob'].mean():.2f}")
     m4.metric("Avg downstream DCs affected", f"{df['downstream_dcs'].mean():.1f}")
 
     st.markdown("")
@@ -431,7 +456,7 @@ with tab_overview:
     fix_df["rule_count"] = fix_df["node_id"].map(rc)
     max_rules = max(fix_df["rule_count"].max(), 1)
     fix_df["priority"] = (
-        fix_df["gnn_prob"] * 0.4
+        fix_df["active_prob"] * 0.4
         + (fix_df["downstream_dcs"] / max_dc) * 0.3
         + (fix_df["exposed_products"] / max_prod) * 0.2
         + (fix_df["rule_count"] / max_rules) * 0.1
@@ -440,11 +465,11 @@ with tab_overview:
 
     _rename_cols = {
         "node_id": "Facility",
-        "gnn_prob": "Risk score",
+        "active_prob": "Risk score",
         "downstream_dcs": "DCs affected",
         "exposed_products": "Products at risk",
     }
-    _display_cols = ["node_id", "gnn_prob", "downstream_dcs", "exposed_products"]
+    _display_cols = ["node_id", "active_prob", "downstream_dcs", "exposed_products"]
 
     type_tabs = st.tabs(["Ports", "Plants", "Warehouses", "Distribution Centers"])
     for tab, (nt, label) in zip(type_tabs, [
@@ -470,7 +495,7 @@ with tab_overview:
 # ═══════════════════════════════════════════════════════════════════════════════
 
 with tab_explorer:
-    is_high_risk = row["gnn_pred"] == 1
+    is_high_risk = row["active_pred"] == 1
     facility_type = FRIENDLY_TYPE.get(row["node_type"], row["node_type"])
     region_name = row.get("region", "—")
 
@@ -481,9 +506,9 @@ with tab_explorer:
         st.markdown(
             f"**{facility_type}** in **{region_name}** · "
             f":red[**High risk**] · "
-            f"Risk score: **{row['gnn_prob']:.0%}**"
+            f"Risk score: **{row['active_prob']:.0%}**"
         )
-        score_pct = int(row["gnn_prob"] * 100)
+        score_pct = int(row["active_prob"] * 100)
         if score_pct >= 75:
             score_desc = "very high likelihood of being operationally critical"
         elif score_pct >= 50:
@@ -498,10 +523,10 @@ with tab_explorer:
         st.markdown(
             f"**{facility_type}** in **{region_name}** · "
             f":green[**Low risk**] · "
-            f"Risk score: **{row['gnn_prob']:.0%}**"
+            f"Risk score: **{row['active_prob']:.0%}**"
         )
         st.caption(
-            f"A risk score of {int(row['gnn_prob'] * 100)}% means this facility "
+            f"A risk score of {int(row['active_prob'] * 100)}% means this facility "
             "is unlikely to cause significant disruption if taken offline."
         )
 
@@ -844,8 +869,8 @@ with tab_errors:
     labelled = df[df["label"].isin(["critical", "non-critical"])].copy()
     labelled["y_true"] = (labelled["label"] == "critical").astype(int)
 
-    fp = labelled[(labelled["gnn_pred"] == 1) & (labelled["y_true"] == 0)]
-    fn = labelled[(labelled["gnn_pred"] == 0) & (labelled["y_true"] == 1)]
+    fp = labelled[(labelled["active_pred"] == 1) & (labelled["y_true"] == 0)]
+    fn = labelled[(labelled["active_pred"] == 0) & (labelled["y_true"] == 1)]
     total_errors = len(fp) + len(fn)
 
     em1, em2, em3 = st.columns(3)
@@ -863,7 +888,7 @@ with tab_errors:
 
     st.markdown("")
 
-    err_cols = ["node_id", "node_type", "region", "gnn_prob"]
+    err_cols = ["node_id", "node_type", "region", "active_prob"]
 
     err_left, err_right = st.columns(2)
 
@@ -871,12 +896,12 @@ with tab_errors:
         st.markdown("**Over-flagged facilities**")
         st.caption("Flagged as high risk but actually low risk.")
         if len(fp) > 0:
-            fp_display = fp[err_cols].sort_values("gnn_prob", ascending=False).reset_index(drop=True)
+            fp_display = fp[err_cols].sort_values("active_prob", ascending=False).reset_index(drop=True)
             fp_display.index = fp_display.index + 1
             st.dataframe(
                 fp_display.rename(columns={
                     "node_id": "Facility", "node_type": "Type",
-                    "region": "Region", "gnn_prob": "Risk score",
+                    "region": "Region", "active_prob": "Risk score",
                 }).style.format({"Risk score": "{:.2f}"}, na_rep="—"),
                 use_container_width=True,
             )
@@ -887,12 +912,12 @@ with tab_errors:
         st.markdown("**Missed high-risk facilities**")
         st.caption("Actually high risk but not flagged by the model. Review these carefully.")
         if len(fn) > 0:
-            fn_display = fn[err_cols].sort_values("gnn_prob", ascending=True).reset_index(drop=True)
+            fn_display = fn[err_cols].sort_values("active_prob", ascending=True).reset_index(drop=True)
             fn_display.index = fn_display.index + 1
             st.dataframe(
                 fn_display.rename(columns={
                     "node_id": "Facility", "node_type": "Type",
-                    "region": "Region", "gnn_prob": "Risk score",
+                    "region": "Region", "active_prob": "Risk score",
                 }).style.format({"Risk score": "{:.2f}"}, na_rep="—"),
                 use_container_width=True,
             )
