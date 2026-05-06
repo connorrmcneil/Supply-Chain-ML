@@ -18,3 +18,10 @@ outputs/
 
 # macOS
 .DS_Store
+
+# Notebook HTML exports
+*.html
+
+# Cursor / Claude local config
+.claude/
+settings.local.json
